@@ -17,7 +17,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "Science Fair": [
 
@@ -38,7 +38,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "Demos": [
 
@@ -59,8 +59,8 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
-            ],
+                }
+            ]
         },
         "college / freshman":
         {
@@ -101,7 +101,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "2nd Semester": [
 
@@ -134,8 +134,8 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
-            ],
+                }
+            ]
         },
         "college / sophomore":
         {
@@ -176,7 +176,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "2nd Semester": [
 
@@ -227,8 +227,8 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
-            ],
+                }
+            ]
         },
         "college / junior":
         {
@@ -287,7 +287,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "2nd Semester": [
 
@@ -320,8 +320,8 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
-            ],
+                }
+            ]
         },
         "Others":
         {
@@ -344,8 +344,8 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
-            ],
+                }
+            ]
         }
     },
     "Code":
@@ -365,7 +365,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "Python": [
 
@@ -398,7 +398,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "Javascript": [
 
@@ -419,7 +419,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "Processing": [
 
@@ -440,7 +440,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "Desmos": [
 
@@ -461,7 +461,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "C": [
 
@@ -476,8 +476,8 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
-            ],
+                }
+            ]
         },
         "Markup language":
         {
@@ -500,7 +500,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "LaTeX": [
 
@@ -527,7 +527,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "web": [
 
@@ -542,8 +542,8 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
-            ],
+                }
+            ]
         }
     },
     "Others":
@@ -563,7 +563,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "handwriting": [
 
@@ -578,8 +578,8 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
-            ],
+                }
+            ]
         },
         "Skate":
         {
@@ -602,7 +602,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ],
             "video": [
 
@@ -641,7 +641,7 @@
                     "description": "",
                     "image": "",
                     "link": ""
-                },
+                }
             ]
         }
     }
