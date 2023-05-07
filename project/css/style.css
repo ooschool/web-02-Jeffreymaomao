@@ -27,6 +27,7 @@
 
 html,body {
     font-family: '微軟正黑體', arial;
+    width: 100%;
 }
 
 h1,h2,h3,h4,h5,h6,p {
@@ -137,6 +138,7 @@ p.text{
 .top-bar {
 /*    border: 1px solid red;*/
     height: 64px;
+    width: 100%;
     position: fixed;
     z-index: 500;
     width: 100%;
@@ -149,7 +151,7 @@ p.text{
 /* search */
 .search-container{
 	position: absolute;
-	right: 40px;
+	right: 3%;
 	top: 25px;
 }
 
@@ -157,12 +159,15 @@ p.text{
 	border: 0;
 	padding: 3px;
 	border-bottom:1px solid #eee;
-	width: 400px;
+	width: 200px;
 	color: #888;
+
+	transition: width 0.3s;
 }
 
 .search-text:focus{
 	outline: none;
+	width: 300px;
 }
 
 /* profile */
@@ -194,16 +199,18 @@ p.text{
     left: 0;
     top: 0;
     width: 220px;
-    height: 100vh;
+    height: 100%;
+
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
     overflow-y: scroll;
     background-color: #fff;
     z-index: 100;
+    margin-top: 64px; /* same as top bar height */
 }
 
 .sidebar-main-menu{
 	display: block;
-	padding-top: 100px;
+	padding-top: 50px;
 	padding-bottom: 50px;
 }
 
@@ -228,12 +235,12 @@ p.text{
 /* -------------------------- */
 /* main */
 .main{
-	margin-left: 220px;
+	margin-top: 64px; /* same as top bar height */
 }
 
 /* content */
 .content {
-	margin-top: 64px;
+	margin-left: 220px; /* same as sidebar width */
 }
 
 /* hero */
@@ -244,13 +251,13 @@ p.text{
 
 /* link-btn  */
 .link-btn-container{
-	padding-left: 300px;
+	padding-left: 25%;
 	padding-top: 80px;
 }
 
 .link-btn{
 	display: block;
-	width: 710px;
+	width: 80%;
 	height: 150px;
 	margin-bottom: 30px;
 	border-radius: 10px;
@@ -269,7 +276,7 @@ p.text{
 
 /* about */
 .about-container{
-	padding-left: 250px;
+	padding-left: 25%;
 }
 
 .about-container .text-container{
@@ -283,11 +290,7 @@ p.text{
 /* -------------------------- */
 /* card */
 #card-wrapper{
-	margin-right:220px;
-	margin-left:220px;
-	margin-top: 0px;
-	margin-bottom: 0px;
-	width: 760px;
+	margin: 0px 16%;
 }
 
 #card-wrapper .text-container{
@@ -384,7 +387,8 @@ p.text{
 /* -------------------------- */
 /* footer */
 .footer{
-	margin-left: 200px;
+	margin-left: 220px;
+	width: 100%;
 }
 
 .footer .copyright{
