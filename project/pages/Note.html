@@ -5,7 +5,9 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 	<link rel="stylesheet" href="../css/normalize.css">
-	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/global.css">
+	<link rel="stylesheet" href="../css/sidebar.css">
+	<link rel="stylesheet" href="../css/pages.css">
 	
 	<title>Jeffrey Note</title>
 </head>
@@ -14,20 +16,18 @@
 		<!-- Start header -->
 		<header class="header">
 			<div class="top-bar">
-				<div class="container">
-					<div class="search-bar">
-						<div class="profile-info">
-							<div class="profile-img">
-								<img src="../css/icon/self.png" alt="">
-							</div>
-							<div class="profile-name">
-								<div class="text">Chang Mao Yang</div>
-							</div>
+				<div class="search-bar">
+					<div class="profile-info">
+						<div class="profile-img">
+							<img src="../css/icon/self.png" alt="">
 						</div>
-						<div class="search-container">
-							<input type="text" class="search-text" id="search-text" placeholder="search">
-							<div id="search-btn" class="search-icon"></div>
+						<div class="profile-name">
+							<div class="text">Chang Mao Yang</div>
 						</div>
+					</div>
+					<div class="search-container">
+						<input type="text" class="search-text" id="search-text" placeholder="search">
+						<div id="search-btn" class="icon search-icon"></div>
 					</div>
 				</div>
 			</div>
@@ -42,28 +42,32 @@
 						<a href="../index.html" class="sidebar-main-item">
 							<div class="icon-container">
 								<div class="icon main-icon"></div>
-							</div><div class="text-container">
+								</div>
+								<div class="text-container">
 								<div class="text">main</div>
 							</div>
 						</a>
 						<a href="./Note.html" class="sidebar-main-item collapsed active">
 							<div class="icon-container">
 								<div class="icon Note-icon"></div>
-							</div><div class="text-container">
+								</div>
+								<div class="text-container">
 								<div class="text">Note</div>
 							</div>
 						</a>
 						<a href="./Code.html" class="sidebar-main-item collapsed">
 							<div class="icon-container">
 								<div class="icon Code-icon"></div>
-							</div><div class="text-container">
+								</div>
+								<div class="text-container">
 								<div class="text">Code</div>
 							</div>
 						</a>
 						<a href="./Others.html" class="sidebar-main-item collapsed">
 							<div class="icon-container">
 								<div class="icon Others-icon"></div>
-							</div><div class="text-container">
+								</div>
+								<div class="text-container">
 								<div class="text">Others</div>
 							</div>
 						</a>
@@ -83,42 +87,62 @@
 							</a>
 						</div>
 						<div class="card-container row">
-								<a href="#!" class="col-lg-4 card">
+							<div class="col-lg-4 col-md-6">
+								<a href="#!" class="card">
 									<div class="img-container">
 										<img class="card-img" src="../img/default.png" alt="">
 									</div>
 									<div class="card-caption">
 										Computational Physics
 									</div>
-							</a><a href="#!" class="col-lg-4 card">
-									<div class="img-container">
-										<img class="card-img" src="../img/default.png" alt="">
-									</div>
-									<div class="card-caption">
-										Advanced Optical experiment
-									</div>
-							</a><a href="#!" class="col-lg-4 card">
+								</a>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<a href="#!" class="card">
+										<div class="img-container">
+											<img class="card-img" src="../img/default.png" alt="">
+										</div>
+										<div class="card-caption">
+											Advanced Optical experiment
+										</div>
+								</a>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<a href="#!" class="card">
 									<div class="img-container">
 										<img class="card-img" src="../img/default.png" alt="">
 									</div>
 									<div class="card-caption">
 										Fundamental Physics Experiments (III)
 									</div>
-							</a><a href="#!" class="col-lg-4 card">
-									<div class="img-container">
-										<img class="card-img" src="../img/default.png" alt="">
-									</div>
-									<div class="card-caption">
-										General Chemistry (II)
-									</div>
-							</a><a href="#!" class="col-lg-4 card">
-									<div class="img-container">
-										<img class="card-img" src="../img/default.png" alt="">
-									</div>
-									<div class="card-caption">
-										Information Creativity
-									</div>
-							</a>
+								</a>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<a href="#!" class="card">
+										<div class="img-container">
+											<img class="card-img" src="../img/default.png" alt="">
+										</div>
+										<div class="card-caption">
+											General Chemistry (II)
+										</div>
+
+								</a>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<a href="#!" class="card">
+										<div class="img-container">
+											<img class="card-img" src="../img/default.png" alt="">
+										</div>
+										<div class="card-caption">
+											Information Creativity
+										</div>
+								</a>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<a href="#!" class="card adding">
+									<div class="icon adding-icon"></div>
+								</a>
+							</div>
 						</div>
 						<div class="text-container sub-title">
 							<a href="#!">
@@ -126,35 +150,49 @@
 							</a>
 						</div>
 						<div class="card-container row">
-								<a href="#!" class="col-lg-4 card">
+							<div class="col-lg-4 col-md-6">
+								<a href="#!" class="card">
 									<div class="img-container">
 										<img class="card-img" src="../img/default.png" alt="">
 									</div>
 									<div class="card-caption">
 										Computational Physics
 									</div>
-							</a><a href="#!" class="col-lg-4 card">
-									<div class="img-container">
-										<img class="card-img" src="../img/default.png" alt="">
-									</div>
-									<div class="card-caption">
-										Computational Physics
-									</div>
-							</a><a href="#!" class="col-lg-4 card">
-									<div class="img-container">
-										<img class="card-img" src="../img/default.png" alt="">
-									</div>
-									<div class="card-caption">
-										Computational Physics
-									</div>
-							</a><a href="#!" class="col-lg-4 card">
-									<div class="img-container">
-										<img class="card-img" src="../img/default.png" alt="">
-									</div>
-									<div class="card-caption">
-										Computational Physics
-									</div>
-							</a>
+
+								</a>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<a href="#!" class="card">
+										<div class="img-container">
+											<img class="card-img" src="../img/default.png" alt="">
+										</div>
+										<div class="card-caption">
+											Computational Physics
+										</div>
+
+								</a>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<a href="#!" class="card">
+										<div class="img-container">
+											<img class="card-img" src="../img/default.png" alt="">
+										</div>
+										<div class="card-caption">
+											Computational Physics
+										</div>
+
+								</a>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<a href="#!" class="card">
+										<div class="img-container">
+											<img class="card-img" src="../img/default.png" alt="">
+										</div>
+										<div class="card-caption">
+											Computational Physics
+										</div>
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>

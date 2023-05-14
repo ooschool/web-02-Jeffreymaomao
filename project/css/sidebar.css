@@ -1,0 +1,60 @@
+@charset "utf-8";
+/*
+ * Page 			: All the pages
+ * Copyright 2023	:
+ * Author			: Chang Mao Yang
+ * Licensed			:
+ */
+/* -------------------------- *\
+	Content
+\* -------------------------- */
+/**
+ * Content ........... You are reading it!
+ * Globel ............ Set common styles
+ * Layout ............ Set grid styles
+ * Component ......... Set component styles
+ * iconss ............ Set some ison
+ * Utility ........... Set some tools style
+ */
+
+/* -------------------------- */
+/* sidebar */
+.sidebar {
+/*    border: 1px solid blue;*/
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 220px;
+    height: 100%;
+
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    overflow-y: scroll;
+    background-color: #fff;
+    z-index: 100;
+    margin-top: 64px; /* same as top bar height */
+}
+
+.sidebar-main-menu{
+	display: block;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.sidebar-main-item{
+	vertical-align: top;
+	display: block;
+	margin-top: 10px;
+	padding-left: 10px;
+	border-radius: 5px;
+	width: 180px;
+
+	display: block;
+	height: 44px;
+	font-size: 15px;
+}
+
+.sidebar-main-item .text-container{
+	vertical-align: top;
+	padding: 13px;
+}
