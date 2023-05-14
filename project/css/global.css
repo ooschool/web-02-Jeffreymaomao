@@ -252,51 +252,8 @@ p.text{
 	padding: 6px;
 }
 
-.icon {
-}
-
-.main-icon:before{
-	content: url(./icon/main.svg);
-}
-
-.Note-icon:before{
-	content: url(./icon/Note.svg);
-}
-
-.Code-icon:before{
-	content: url(./icon/Code.svg);
-}
-
-.Others-icon:before{
-	content: url(./icon/Others.svg);
-}
-
-
 .adding-icon:before{
 	content: url(./icon/adding.svg);
-}
-
-
-.expanded:after{
-	content: url(./icon/expanded.svg);
-	text-align: center;
-	border-radius: 5px;
-	width: 30px;
-	position: absolute;
-	right: 10px;
-	top: 50%;
-	transform: translate(0, -50%);
-}
-
-.collapsed:after{
-	content: url(./icon/collapsed.svg);
-	text-align: center;
-	border-radius: 5px;
-	width: 30px;
-	position: absolute;
-	right: 10px;
-	top: 50%;
-	transform: translate(0, -50%);
 }
 
 .search-icon{
@@ -322,14 +279,12 @@ p.text{
 /*------------------------------------------------------------------*
  | [color transformation](https://www.zhangxinxu.com/sp/filter.html)|
  *------------------------------------------------------------------*/
+
 .icon:before{
 	/* #000000 -> #D0D0D0 */
 	filter: invert(94%) sepia(0%) saturate(1389%) hue-rotate(12deg) brightness(117%) contrast(63%);
 }
-.collapsed:after{
-	/* #000000 -> #D0D0D0 */
-	filter: invert(94%) sepia(0%) saturate(1389%) hue-rotate(12deg) brightness(117%) contrast(63%);
-}
+
 .title-anchor-icon:after{
 	/* #000000 -> #797979 */
 	filter: invert(48%) sepia(3%) saturate(6%) hue-rotate(348deg) brightness(98%) contrast(94%);
@@ -337,12 +292,6 @@ p.text{
 .sub-title-anchor-icon:after{
 	/* #000000 -> #D0D0D0 */
 	filter: invert(94%) sepia(0%) saturate(1389%) hue-rotate(12deg) brightness(117%) contrast(63%);
-}
-
-
-.active .icon:before, .active .text,.active:after{
-	color: #8089E1;
-	filter: invert(60%) sepia(7%) saturate(3218%) hue-rotate(197deg) brightness(92%) contrast(91%);
 }
 
 
@@ -359,5 +308,10 @@ p.text{
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+.clearfix:after{
+	content: '';
+	display: block;
+	clear: both;
 }
 

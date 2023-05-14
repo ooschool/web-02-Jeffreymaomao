@@ -35,26 +35,138 @@
     margin-top: 64px; /* same as top bar height */
 }
 
-.sidebar-main-menu{
+
+/* -------------------------- *\
+	primary item
+\* -------------------------- */
+.sidebar-primary-menu{
 	display: block;
 	padding-top: 50px;
 	padding-bottom: 50px;
 }
 
-.sidebar-main-item{
-	vertical-align: top;
+
+.sidebar-primary-item{
 	display: block;
-	margin-top: 10px;
-	padding-left: 10px;
 	border-radius: 5px;
-	width: 180px;
-
-	display: block;
-	height: 44px;
+	width: 100%;
+	height: 50px;
 	font-size: 15px;
+
+	margin-top: 5px;
+	padding: 5px 5px;
 }
 
-.sidebar-main-item .text-container{
-	vertical-align: top;
-	padding: 13px;
+.sidebar-primary-item .icon-container{
+	display: inline-block;
+	float: left;
+	height: 40px;
+	width: 40px;
+	padding: 6px;
 }
+.sidebar-primary-item .text-container{
+	display: inline-block;
+	height: 40px;
+	padding: 13px;
+	float: left;
+}
+.sidebar-primary-item .btn-container{
+	display: inline-block;
+	float: right;
+	width: 40px;
+	height: 40px;
+	border-radius: 5px;
+	text-align: center;
+	padding: 6px;
+}
+.sidebar-primary-item:hover{
+	background-color: #eee;
+}
+.sidebar-primary-item:hover .text,
+.sidebar-primary-item:hover .icon:before{
+	color: #797979;
+	filter: invert(48%) sepia(3%) saturate(6%) hue-rotate(348deg) brightness(98%) contrast(94%);
+}
+
+.sidebar-primary-item .btn-container:hover{
+	background-color: #ccc;
+}
+
+/* -------------------------- *\
+	secondary item
+\* -------------------------- */
+
+.sidebar-secondary-menu{
+	display: block;
+	margin: 0px 5px;
+	padding-top: 0px;
+	padding-bottom: 50px;
+
+	border: solid 1px red;
+}
+
+
+
+/* -------------------------- *\
+	Icon
+\* -------------------------- */
+
+.icon {
+}
+
+.main-icon:before{
+	content: url(./icon/main.svg);
+}
+
+.Note-icon:before{
+	content: url(./icon/Note.svg);
+}
+
+.Code-icon:before{
+	content: url(./icon/Code.svg);
+}
+
+.Others-icon:before{
+	content: url(./icon/Others.svg);
+}
+
+
+.expanded:before{
+	content: url(./icon/expanded.svg);
+}
+
+.collapsed:before{
+	content: url(./icon/collapsed.svg);
+}
+
+/*------------------------------------------------------------------*
+ | [color transformation](https://www.zhangxinxu.com/sp/filter.html)|
+	
+#000000 -> #D0D0D0 
+filter: invert(94%) sepia(0%) saturate(1389%) hue-rotate(12deg) brightness(117%) contrast(63%);
+#000000 -> #797979
+filter: invert(48%) sepia(3%) saturate(6%) hue-rotate(348deg) brightness(98%) contrast(94%);
+
+ *------------------------------------------------------------------*/
+.collapsed:before{
+	/* #000000 -> #D0D0D0 */
+	filter: invert(94%) sepia(0%) saturate(1389%) hue-rotate(12deg) brightness(117%) contrast(63%);
+}
+
+.active .icon:before, .active .text,.active:after{
+	color: #8089E1;
+	filter: invert(60%) sepia(7%) saturate(3218%) hue-rotate(197deg) brightness(92%) contrast(91%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
