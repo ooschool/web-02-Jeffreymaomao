@@ -55,12 +55,68 @@
 								<div class="text">Note</div>
 							</div>
 							<div class="btn-container">
-								<div class="icon collapsed"></div>
+								<div class="icon collapsed-icon"></div>
 							</div>
 						</a>
 						<ul class="sidebar-secondary-menu">
-							<li>1</li>
-							<li>2</li>
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">juinor</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">2nd Semester</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">1st Semester</a>
+								</li>
+							</ul>
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">sophomore</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">2nd Semester</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">1st Semester</a>
+								</li>
+							</ul>
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">freshman</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">2nd Semester</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">1st Semester</a>
+								</li>
+							</ul>
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">highschool</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">2nd Semester</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">1st Semester</a>
+								</li>
+							</ul>
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">others</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Physics</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Mathematics</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Comupter Vision</a>
+								</li>
+							</ul>
 						</ul>
 						<a href="./pages/Code.html" class="sidebar-primary-item">
 							<div class="icon-container">
@@ -70,9 +126,54 @@
 								<div class="text">Code</div>
 							</div>
 							<div class="btn-container">
-								<div class="icon collapsed"></div>
+								<div class="icon collapsed-icon"></div>
 							</div>
 						</a>
+						<ul class="sidebar-secondary-menu">
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">Programming</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Python</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">JavaScript</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Processing</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">C</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">C++</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">MATLAB</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">GLSL</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Desmos</a>
+								</li>
+							</ul>
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">Markup</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">LaTeX</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Mardown</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">HTML</a>
+								</li>
+							</ul>
+						</ul>
 						<a href="./pages/Others.html" class="sidebar-primary-item">
 							<div class="icon-container">
 								<div class="icon Others-icon"></div>
@@ -81,9 +182,33 @@
 								<div class="text">Others</div>
 							</div>
 							<div class="btn-container">
-								<div class="icon collapsed"></div>
+								<div class="icon collapsed-icon"></div>
 							</div>
 						</a>
+						<ul class="sidebar-secondary-menu">
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">Art</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Blender</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Hand Writing</a>
+								</li>
+							</ul>
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">Skate</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Clips</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Videos</a>
+								</li>
+							</ul>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -137,5 +262,23 @@
 		</footer>
 		<!-- End footer -->
 	</div>
+	<script>
+		var SidebarExpandBTN = document.querySelectorAll(".sidebar .btn-container");
+		for(var i=0;i<SidebarExpandBTN.length;i++){
+			const btn = SidebarExpandBTN[i];
+			btn.addEventListener("click",(e)=>{
+				e.preventDefault();
+				btn.querySelector(".icon").classList.toggle("expanded-icon");
+				btn.querySelector(".icon").classList.toggle("collapsed-icon");
+				const menu = btn.parentElement.nextElementSibling;
+				
+				if (menu.style.maxHeight) {
+			    	menu.style.maxHeight = null;
+			    } else {
+			    	menu.style.maxHeight = menu.scrollHeight + "px";
+			    } 
+			})
+		}
+	</script>
 </body>
 </html>
