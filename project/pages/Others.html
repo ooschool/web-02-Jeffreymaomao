@@ -9,6 +9,8 @@
 	<link rel="stylesheet" href="../css/sidebar.css">
 	<link rel="stylesheet" href="../css/pages.css">
 	
+	<script src='../js/sidebar.js' defer></script>
+
 	<title>Jeffrey Others</title>
 </head>
 <body>
@@ -38,8 +40,8 @@
 		<section class="main">
 			<div class="sidebar">
 				<div class="container">
-					<div class="sidebar-main-menu">
-						<a href="../index.html" class="sidebar-main-item">
+					<div class="sidebar-primary-menu">
+						<a href="../index.html" class="sidebar-primary-item">
 							<div class="icon-container">
 								<div class="icon main-icon"></div>
 							</div>
@@ -47,33 +49,172 @@
 								<div class="text">main</div>
 							</div>
 						</a>
-						<a href="./Note.html" class="sidebar-main-item collapsed">
+						<a href="./Note.html" class="sidebar-primary-item">
 							<div class="icon-container">
 								<div class="icon Note-icon"></div>
 							</div>
 							<div class="text-container">
 								<div class="text">Note</div>
 							</div>
+							<div class="btn-container">
+								<div class="icon collapsed-icon"></div>
+							</div>
 						</a>
-						<a href="./Code.html" class="sidebar-main-item collapsed">
+						<ul class="sidebar-secondary-menu">
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">juinor</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">2nd Semester</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">1st Semester</a>
+								</li>
+							</ul>
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">sophomore</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">2nd Semester</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">1st Semester</a>
+								</li>
+							</ul>
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">freshman</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">2nd Semester</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">1st Semester</a>
+								</li>
+							</ul>
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">highschool</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">2nd Semester</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">1st Semester</a>
+								</li>
+							</ul>
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">others</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Physics</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Mathematics</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Comupter Vision</a>
+								</li>
+							</ul>
+						</ul>
+						<a href="./Code.html" class="sidebar-primary-item">
 							<div class="icon-container">
 								<div class="icon Code-icon"></div>
 							</div>
 							<div class="text-container">
 								<div class="text">Code</div>
 							</div>
+							<div class="btn-container">
+								<div class="icon collapsed-icon"></div>
+							</div>
 						</a>
-						<a href="./Others.html" class="sidebar-main-item collapsed active">
+						<ul class="sidebar-secondary-menu">
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">Programming</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Python</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">JavaScript</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Processing</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">C</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">C++</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">MATLAB</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">GLSL</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Desmos</a>
+								</li>
+							</ul>
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">Markup</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">LaTeX</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Mardown</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">HTML</a>
+								</li>
+							</ul>
+						</ul>
+						<a href="./Others.html" class="sidebar-primary-item active">
 							<div class="icon-container">
 								<div class="icon Others-icon"></div>
 							</div>
 							<div class="text-container">
 								<div class="text">Others</div>
 							</div>
+							<div class="btn-container">
+								<div class="icon collapsed-icon"></div>
+							</div>
 						</a>
+						<ul class="sidebar-secondary-menu">
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">Art</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Blender</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Hand Writing</a>
+								</li>
+							</ul>
+							<li class="sidebar-secondary-item">
+								<a href="#!" class="text-container">Skate</a>
+							</li>
+							<ul class="sidebar-tertiary-menu">
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Clips</a>
+								</li>
+								<li class="sidebar-tertiary-item">
+									<a href="#!" class="text-container">Videos</a>
+								</li>
+							</ul>
+						</ul>
 					</div>
 				</div>
-			</div><div class="content">
+			</div>
+			<div class="content">
 				<div id="card-wrapper" class="hero">
 					<div class="container">
 						<div class="text-container title">

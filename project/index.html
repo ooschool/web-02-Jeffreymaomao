@@ -4,11 +4,13 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/global.css">
-	<link rel="stylesheet" href="css/sidebar.css">
-	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="./css/normalize.css">
+	<link rel="stylesheet" href="./css/global.css">
+	<link rel="stylesheet" href="./css/sidebar.css">
+	<link rel="stylesheet" href="./css/main.css">
 	
+	<script src='./js/sidebar.js' defer></script>
+
 	<title>Jeffrey Project</title>
 </head>
 <body>
@@ -262,23 +264,5 @@
 		</footer>
 		<!-- End footer -->
 	</div>
-	<script>
-		var SidebarExpandBTN = document.querySelectorAll(".sidebar .btn-container");
-		for(var i=0;i<SidebarExpandBTN.length;i++){
-			const btn = SidebarExpandBTN[i];
-			btn.addEventListener("click",(e)=>{
-				e.preventDefault();
-				btn.querySelector(".icon").classList.toggle("expanded-icon");
-				btn.querySelector(".icon").classList.toggle("collapsed-icon");
-				const menu = btn.parentElement.nextElementSibling;
-				
-				if (menu.style.maxHeight) {
-			    	menu.style.maxHeight = null;
-			    } else {
-			    	menu.style.maxHeight = menu.scrollHeight + "px";
-			    } 
-			})
-		}
-	</script>
 </body>
 </html>
