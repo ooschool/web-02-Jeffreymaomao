@@ -4,12 +4,21 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
+	<link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Jeffreymaomao/figure/main/fig2.ico">
+	
 	<link rel="stylesheet" href="../css/normalize.css">
 	<link rel="stylesheet" href="../css/global.css">
 	<link rel="stylesheet" href="../css/sidebar.css">
 	<link rel="stylesheet" href="../css/pages.css">
 	
 	<script src='../js/sidebar.js' defer></script>
+	<script src='../js/load.js' defer></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', ()=>{
+			loadCard('../memo/content.json', 'Code');
+		});
+	</script>
+
 
 	<title>Jeffrey Code</title>
 </head>
@@ -217,7 +226,7 @@
 			<div class="content">
 				<div id="card-wrapper" class="hero">
 					<div class="container">
-						<div class="text-container title">
+						<!-- <div class="text-container title">
 							<a href="#!">
 								<h2 class="text title-anchor-icon">Colledge-junior</h2>
 							</a>
@@ -259,7 +268,7 @@
 							<div class="col-lg-4 col-md-6">
 								<a href="#!" class="card"><div class="card-caption">Computational Physics</div></a>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
