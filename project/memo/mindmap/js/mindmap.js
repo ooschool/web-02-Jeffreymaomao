@@ -94,53 +94,66 @@ function drawLines(id,data) {
     })
 }
 
-function mindmap(id, data) {
-    if (id && data) {
-        window.onbeforeunload = function() {
+class Mindmap{
+    constructor(id, data){
+        this.id = id;
+        this.data = data;
+        this.width_ = window.innerWidth;
+        this.height_ = window.innerHeight;
+
+        if (id && data) {
             window.scrollTo(0, 0);
-        };
-        createMap(id, data);
-        const resizeObserver = new ResizeObserver(entries => {
-            $('#mySVG').remove()
-            drawLines(id,data)
-        })
-        resizeObserver.observe($(id).n);
+            window.onbeforeunload = function() {
+                window.scrollTo(0, 0);
+            };
+
+            createMap(id, data);
+            const resizeObserver = new ResizeObserver(entries => {
+                $('#mySVG').remove()
+                drawLines(id,data)
+            })
+
+            resizeObserver.observe($(id).n);
+
+            let widthInput = document.getElementById('widthInput');
+            let heightInput = document.getElementById('heightInput');
+            widthInput.value = this.width_;
+            heightInput.value = this.height_;
+            
+            widthInput.addEventListener('input', (e) => {
+                this.width = e.target.value;
+            });
+            heightInput.addEventListener('input', (e) => {
+                this.height = e.target.value;
+            });
+        }else{
+            throw("Input must be (<div id>, <json data>)")
+        }
     }
-}
-
-
-var mindmap_data = {
-    _width: window.innerWidth,
-    _height: window.innerHeight,
-    get width(){
-        return this._width+'px';
-    },
     get height(){
-        return this._height+'px';
-    },
+        return this.height_+'px';
+    }
+    get width(){
+        return this.width_+'px';
+    }
     set width(w){
         if(w){
-            mindmap_data._width = w;
-            $("#container").n.style.width = mindmap_data.width;
+            this.width_ = w;
+            $("#container").n.style.width = this.width;
         }
-    },
-    set height(h){
-        if(h){
-            mindmap_data._height = h;
-            $("#mindmap").n.style.height = mindmap_data.height
-        }
-    },
-    init: function(){
-        let widthInput = document.getElementById('widthInput');
-        widthInput.value = mindmap_data._width;
-        widthInput.addEventListener('input', (e) => {
-            mindmap_data.width = e.target.value;
-        });
-        let heightInput = document.getElementById('heightInput');
-        heightInput.value = mindmap_data._height;
-        heightInput.addEventListener('input', (e) => {
-            mindmap_data.height = e.target.value;
-        });
     }
-
+    set height(w){
+        if(w){
+            this.height_ = w;
+            $("#container").n.style.height = this.height;
+        }
+    }
 }
+
+
+
+
+
+
+
+

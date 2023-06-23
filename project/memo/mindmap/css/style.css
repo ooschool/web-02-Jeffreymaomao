@@ -111,4 +111,5 @@
 #mindmap_width input {
     width: 80px;
     border: 0;
+    text-align: right;
 }

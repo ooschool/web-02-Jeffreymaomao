@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Jeffreymaomao/figure/main/fig2.ico">
+
     <title>Mind Map</title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/mindmap.css">
     <link rel="stylesheet" href="css/style.css">
-
-    <script type="text/javascript" src="data/content.js"></script>
 
     <script type="text/javascript" src="js/parse.js"></script>
     <script type="text/javascript" src="js/mindmap.js"></script>
@@ -28,7 +29,18 @@
     <div id="container">
         <div id="mindmap"></div>
     </div>
-    <script type="text/javascript">mindmap("#mindmap", data);mindmap_data.init();</script>
+    <script type="text/javascript">
+        var data,mindmap;
+        fetch('../content.json')
+            .then((response) => response.json())
+            .then((json) => {
+                data = parseObject2Data(json);
+                mindmap = new Mindmap("#mindmap", data);
+            });
+
+        
+        
+    </script>
 </body>
 
 </html>
