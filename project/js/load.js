@@ -1,16 +1,110 @@
+/**
+ * if need to reverse the order
+ * 
+ * > Object.keys(json[pageName]).reverse().forEach()
+ * 
+ * > Object.keys(json[pageName][title]).reverse().forEach()
+ * 
+ * > Object.keys(json[pageName][title][subtitle]).reverse().forEach()
+ * 
+ * */
+
+function loadSideBar(json,pageName){
+	const sidebar = document.querySelector("#sidebar .container .sidebar-primary-menu");
+	/* Home */
+	const primaryA = document.createElement('a');
+	const primaryIconContainerDiv = document.createElement('div');
+	const primaryIconDiv = document.createElement('div');
+	const primaryTextContainerDiv = document.createElement('div');
+	const primaryTextDiv = document.createElement('div');
+
+	primaryA.classList.add("sidebar-primary-item");
+	primaryIconContainerDiv.classList.add("icon-container");
+	primaryTextContainerDiv.classList.add("text-container");
+	primaryIconDiv.classList.add("icon","main-icon")
+	primaryTextDiv.classList.add("text");
+
+	primaryTextDiv.textContent = "main";
+	primaryA.href = "#!";
+
+	sidebar.appendChild(primaryA);
+	primaryA.appendChild(primaryIconContainerDiv);
+	primaryA.appendChild(primaryTextContainerDiv);
+	primaryIconContainerDiv.appendChild(primaryIconDiv);
+	primaryTextContainerDiv.appendChild(primaryTextDiv);
+
+	Object.keys(json).forEach((page)=>{
+		const primaryA = document.createElement('a');
+		const primaryIconContainerDiv = document.createElement('div');
+		const primaryIconDiv = document.createElement('div');
+		const primaryTextContainerDiv = document.createElement('div');
+		const primaryTextDiv = document.createElement('div');
+		const primaryExpandContainerDiv = document.createElement('div');
+		const primaryExpandDiv = document.createElement('div');
+		const primaryList = document.createElement('ul');
+
+		primaryA.classList.add("sidebar-primary-item");
+		primaryIconContainerDiv.classList.add("icon-container");
+		primaryTextContainerDiv.classList.add("text-container");
+		primaryIconDiv.classList.add("icon", page+"-icon");
+		primaryTextDiv.classList.add("text");
+		primaryExpandContainerDiv.classList.add("btn-container");
+		primaryExpandDiv.classList.add("icon","collapsed-icon");
+		primaryList.classList.add("sidebar-secondary-menu");
+
+		if(pageName === page){primaryA.classList.add("active");}
+
+		primaryTextDiv.textContent = page;
+		primaryA.href = "#!";
+
+		sidebar.appendChild(primaryA);
+		sidebar.appendChild(primaryList);
+		primaryA.appendChild(primaryIconContainerDiv);
+		primaryA.appendChild(primaryTextContainerDiv);
+		primaryA.appendChild(primaryExpandContainerDiv);
+		primaryIconContainerDiv.appendChild(primaryIconDiv);
+		primaryTextContainerDiv.appendChild(primaryTextDiv);
+		primaryExpandContainerDiv.appendChild(primaryExpandDiv);
+
+		Object.keys(json[page]).forEach((title)=>{
+			
+			const secondaryItem = document.createElement('li');
+			const secondaryA = document.createElement('a');
+			const secondaryList = document.createElement('ul');
+
+			secondaryItem.classList.add("sidebar-secondary-item");
+			secondaryA.classList.add("text-container");
+			secondaryList.classList.add("sidebar-tertiary-menu");
+			
+			secondaryA.href = "#!";
+			secondaryA.textContent = title;
+
+			primaryList.appendChild(secondaryItem);
+			primaryList.appendChild(secondaryList);
+			secondaryItem.appendChild(secondaryA);
+
+			Object.keys(json[page][title]).forEach((subtitle)=>{
+				const tertiaryItem = document.createElement('li');
+				const tertiaryA = document.createElement('a');
+
+				tertiaryItem.classList.add("sidebar-tertiary-item");
+				tertiaryA.classList.add("text-container");
+				
+				tertiaryA.href = "#!";
+				tertiaryA.textContent = subtitle;
+
+				secondaryList.appendChild(tertiaryItem);
+				tertiaryItem.appendChild(tertiaryA);
+
+			})
+		})
+	})
+	console.log(sidebar)
+}
+
 function loadCard(json,pageName){
-	/**
-	 * if need to reverse the order
-	 * 
-	 * > Object.keys(json[pageName]).reverse().forEach()
-	 * 
-	 * > Object.keys(json[pageName][title]).reverse().forEach()
-	 * 
-	 * > Object.keys(json[pageName][title][subtitle]).reverse().forEach()
-	 * 
-	 * */
+	const cardWrapper = document.querySelector("#card-wrapper .container");
 	Object.keys(json[pageName]).forEach((title)=>{
-		const cardWrapper = document.querySelector("#card-wrapper .container");
 		/* -- start title  ---------------------------------------- */
 		const titleDiv = document.createElement('div');
 		const titleA = document.createElement('a');
