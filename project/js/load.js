@@ -9,12 +9,79 @@
  * 
  * */
 
+function loadHome(json){
+	const content = document.getElementById("content");
+
+	/* button list*/
+	const linkWrapperDiv = document.createElement("div");
+	const linkWrapperContainerDiv = document.createElement("div");
+	const linkBtnContainerDiv = document.createElement("div");
+
+	content.appendChild(linkWrapperDiv);
+	linkWrapperDiv.appendChild(linkWrapperContainerDiv);
+	linkWrapperContainerDiv.appendChild(linkBtnContainerDiv);
+
+	linkWrapperDiv.classList.add("hero")
+	linkWrapperDiv.id = "link-wrapper";
+	linkWrapperContainerDiv.classList.add("container");
+	linkBtnContainerDiv.classList.add("link-btn-container");
+	
+
+	Object.keys(json).forEach((page)=>{
+		const linkBtnA = document.createElement("a");
+		const linkTextContainerDiv = document.createElement("div");
+		const linkTextH1 = document.createElement("h1");
+
+		linkBtnA.classList.add("link-btn");
+		linkTextContainerDiv.classList.add("text-container");
+		linkTextH1.classList.add("text");
+
+		linkBtnA.href = "#!";
+		linkTextH1.textContent = page;
+
+		linkBtnContainerDiv.appendChild(linkBtnA);
+		linkBtnA.appendChild(linkTextContainerDiv);
+		linkTextContainerDiv.appendChild(linkTextH1);
+	})
+
+	/* About */
+	const aboutWrapperDiv = document.createElement("div");
+	const aboutWrapperContainerDiv = document.createElement("div");
+	const darkMask = document.createElement("div");
+	const aboutContainerDiv = document.createElement("div");
+	const aboutTitleH1 = document.createElement("h1");
+	const aboutTextContainerDiv = document.createElement("div");
+	const aboutTextDiv = document.createElement("div");
+
+
+
+	content.appendChild(aboutWrapperDiv);
+	aboutWrapperDiv.appendChild(darkMask);
+	aboutWrapperDiv.appendChild(aboutWrapperContainerDiv);
+	aboutWrapperContainerDiv.appendChild(aboutContainerDiv);
+	aboutContainerDiv.appendChild(aboutTitleH1);
+	aboutContainerDiv.appendChild(aboutTextContainerDiv);
+	aboutTextContainerDiv.appendChild(aboutTextDiv);
+
+	aboutWrapperDiv.classList.add("hero")
+	darkMask.classList.add("mask-dark")
+	aboutWrapperContainerDiv.classList.add("container");
+	aboutContainerDiv.classList.add("about-container");
+	aboutTitleH1.classList.add("text");
+	aboutTextContainerDiv.classList.add("text-container");
+	aboutTextDiv.classList.add("text");
+
+	aboutWrapperDiv.id = "about-wrapper";
+	aboutTitleH1.id = "about-title"
+	aboutTitleH1.textContent = "About";
+	aboutTextDiv.textContent = `
+	Lorem ipsum dolor, sit amet consectetur, adipisicing elit. Quisquam alias molestias libero eos cumque labore culpa, expedita dolore deserunt adipisci ut temporibus omnis voluptatum molestiae, quia delectus optio architecto voluptatibus. Minus facilis voluptates ab possimus libero labore ex nemo rem commodi, distinctio nobis delectus eos, incidunt, cumque adipisci hic temporibus doloribus ad quae odit natus. Ipsam tempora labore ex suscipit! Magnam nihil similique at iste, odit, provident. Accusantium fugit corrupti velit doloribus nihil praesentium ea iure beatae, repellat inventore fuga assumenda cum voluptatem nostrum eos ut perferendis eveniet quas molestiae.
+	`;
+
+	console.log(content);
+}
+
 function loadSideBar(json,pageName){
-	var isHome = false;
-	/* in home page */
-	if(Object.keys(json).indexOf(pageName)==-1){	
-		isHome = true;
-	}
 	const sidebar = document.querySelector("#sidebar .container .sidebar-primary-menu");
 	/* Home */
 	const primaryA = document.createElement('a');
@@ -30,12 +97,7 @@ function loadSideBar(json,pageName){
 	primaryTextDiv.classList.add("text");
 
 	primaryTextDiv.textContent = "main";
-	if(isHome){
-		primaryA.href = "./index.html";
-		primaryA.classList.add("active");
-	}else{
-		primaryA.href = "../index.html";
-	}
+	primaryA.href = "../index.html";
 	
 
 	sidebar.appendChild(primaryA);
@@ -66,11 +128,7 @@ function loadSideBar(json,pageName){
 		if(pageName === page){primaryA.classList.add("active");}
 
 		primaryTextDiv.textContent = page;
-		if(isHome){
-			primaryA.href = "./pages/"+page+".html";
-		}else{
-			primaryA.href = "./"+page+".html";
-		}
+		primaryA.href = "./"+page+".html";
 
 		sidebar.appendChild(primaryA);
 		sidebar.appendChild(primaryList);
@@ -92,11 +150,7 @@ function loadSideBar(json,pageName){
 			secondaryList.classList.add("sidebar-tertiary-menu");
 			
 			secondaryA.textContent = title;
-			if(isHome){
-				secondaryA.href = "./pages/" + page + ".html#" + title;
-			}else{
-				secondaryA.href = "./" + page + ".html#" + title;
-			}
+			secondaryA.href = "./" + page + ".html#" + title;
 
 			primaryList.appendChild(secondaryItem);
 			primaryList.appendChild(secondaryList);
@@ -111,11 +165,7 @@ function loadSideBar(json,pageName){
 				
 				tertiaryA.textContent = subtitle;
 				tertiaryA.href = "#!";
-				if(isHome){
-					tertiaryA.href = "./pages/" + page + ".html#" + title + subtitle;
-				}else{
-					tertiaryA.href = "./" + page + ".html#" + title + subtitle;
-				}
+				tertiaryA.href = "./" + page + ".html#" + title + subtitle;
 
 				secondaryList.appendChild(tertiaryItem);
 				tertiaryItem.appendChild(tertiaryA);
