@@ -15,7 +15,11 @@
 	<script src='../js/load.js' defer></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', ()=>{
-			loadCard('../memo/content.json', 'Code');
+			fetch('../memo/content.json')
+			.then((response) => response.json())
+			.then((json) => {
+				loadCard(json, 'Code');
+			})
 		});
 	</script>
 
