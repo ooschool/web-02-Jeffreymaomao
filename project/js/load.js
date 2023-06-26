@@ -9,7 +9,7 @@
  * 
  * */
 
-function loadHome(json){
+function createHomePage(json){
 	const content = document.getElementById("content");
 
 	/* button list*/
@@ -21,7 +21,7 @@ function loadHome(json){
 	linkWrapperDiv.appendChild(linkWrapperContainerDiv);
 	linkWrapperContainerDiv.appendChild(linkBtnContainerDiv);
 
-	linkWrapperDiv.classList.add("hero")
+	linkWrapperDiv.classList.add("hero");
 	linkWrapperDiv.id = "link-wrapper";
 	linkWrapperContainerDiv.classList.add("container");
 	linkBtnContainerDiv.classList.add("link-btn-container");
@@ -77,106 +77,22 @@ function loadHome(json){
 	aboutTextDiv.textContent = `
 	Lorem ipsum dolor, sit amet consectetur, adipisicing elit. Quisquam alias molestias libero eos cumque labore culpa, expedita dolore deserunt adipisci ut temporibus omnis voluptatum molestiae, quia delectus optio architecto voluptatibus. Minus facilis voluptates ab possimus libero labore ex nemo rem commodi, distinctio nobis delectus eos, incidunt, cumque adipisci hic temporibus doloribus ad quae odit natus. Ipsam tempora labore ex suscipit! Magnam nihil similique at iste, odit, provident. Accusantium fugit corrupti velit doloribus nihil praesentium ea iure beatae, repellat inventore fuga assumenda cum voluptatem nostrum eos ut perferendis eveniet quas molestiae.
 	`;
-
-	console.log(content);
 }
 
-function loadSideBar(json,pageName){
-	const sidebar = document.querySelector("#sidebar .container .sidebar-primary-menu");
-	/* Home */
-	const primaryA = document.createElement('a');
-	const primaryIconContainerDiv = document.createElement('div');
-	const primaryIconDiv = document.createElement('div');
-	const primaryTextContainerDiv = document.createElement('div');
-	const primaryTextDiv = document.createElement('div');
+function createCard(json,pageName){
+	const content = document.getElementById("content");
 
-	primaryA.classList.add("sidebar-primary-item");
-	primaryIconContainerDiv.classList.add("icon-container");
-	primaryTextContainerDiv.classList.add("text-container");
-	primaryIconDiv.classList.add("icon","main-icon")
-	primaryTextDiv.classList.add("text");
+	const cardWrapperDiv = document.createElement("div");
+	const cardWrapperContainerDiv = document.createElement("div");
 
-	primaryTextDiv.textContent = "main";
-	primaryA.href = "../index.html";
-	
+	cardWrapperDiv.classList.add("hero");
+	cardWrapperContainerDiv.classList.add("container");
 
-	sidebar.appendChild(primaryA);
-	primaryA.appendChild(primaryIconContainerDiv);
-	primaryA.appendChild(primaryTextContainerDiv);
-	primaryIconContainerDiv.appendChild(primaryIconDiv);
-	primaryTextContainerDiv.appendChild(primaryTextDiv);
+	cardWrapperDiv.id = "card-wrapper";
 
-	Object.keys(json).forEach((page)=>{
-		const primaryA = document.createElement('a');
-		const primaryIconContainerDiv = document.createElement('div');
-		const primaryIconDiv = document.createElement('div');
-		const primaryTextContainerDiv = document.createElement('div');
-		const primaryTextDiv = document.createElement('div');
-		const primaryExpandContainerDiv = document.createElement('div');
-		const primaryExpandDiv = document.createElement('div');
-		const primaryList = document.createElement('ul');
+	content.appendChild(cardWrapperDiv);
+	cardWrapperDiv.appendChild(cardWrapperContainerDiv);
 
-		primaryA.classList.add("sidebar-primary-item");
-		primaryIconContainerDiv.classList.add("icon-container");
-		primaryTextContainerDiv.classList.add("text-container");
-		primaryIconDiv.classList.add("icon", page+"-icon");
-		primaryTextDiv.classList.add("text");
-		primaryExpandContainerDiv.classList.add("btn-container");
-		primaryExpandDiv.classList.add("icon","collapsed-icon");
-		primaryList.classList.add("sidebar-secondary-menu");
-
-		if(pageName === page){primaryA.classList.add("active");}
-
-		primaryTextDiv.textContent = page;
-		primaryA.href = "./"+page+".html";
-
-		sidebar.appendChild(primaryA);
-		sidebar.appendChild(primaryList);
-		primaryA.appendChild(primaryIconContainerDiv);
-		primaryA.appendChild(primaryTextContainerDiv);
-		primaryA.appendChild(primaryExpandContainerDiv);
-		primaryIconContainerDiv.appendChild(primaryIconDiv);
-		primaryTextContainerDiv.appendChild(primaryTextDiv);
-		primaryExpandContainerDiv.appendChild(primaryExpandDiv);
-
-		Object.keys(json[page]).forEach((title)=>{
-			
-			const secondaryItem = document.createElement('li');
-			const secondaryA = document.createElement('a');
-			const secondaryList = document.createElement('ul');
-
-			secondaryItem.classList.add("sidebar-secondary-item");
-			secondaryA.classList.add("text-container");
-			secondaryList.classList.add("sidebar-tertiary-menu");
-			
-			secondaryA.textContent = title;
-			secondaryA.href = "./" + page + ".html#" + title;
-
-			primaryList.appendChild(secondaryItem);
-			primaryList.appendChild(secondaryList);
-			secondaryItem.appendChild(secondaryA);
-
-			Object.keys(json[page][title]).forEach((subtitle)=>{
-				const tertiaryItem = document.createElement('li');
-				const tertiaryA = document.createElement('a');
-
-				tertiaryItem.classList.add("sidebar-tertiary-item");
-				tertiaryA.classList.add("text-container");
-				
-				tertiaryA.textContent = subtitle;
-				tertiaryA.href = "#!";
-				tertiaryA.href = "./" + page + ".html#" + title + subtitle;
-
-				secondaryList.appendChild(tertiaryItem);
-				tertiaryItem.appendChild(tertiaryA);
-
-			})
-		})
-	})
-}
-
-function loadCard(json,pageName){
-	const cardWrapper = document.querySelector("#card-wrapper .container");
 	Object.keys(json[pageName]).forEach((title)=>{
 		/* -- start title  ---------------------------------------- */
 		const titleDiv = document.createElement('div');
@@ -190,7 +106,7 @@ function loadCard(json,pageName){
 		titleA.href = "#"+title;	/* Notice: need symbols -> underscore */
 		titleH2.textContent = title;
 
-		cardWrapper.appendChild(titleDiv);
+		cardWrapperContainerDiv.appendChild(titleDiv);
 		titleDiv.appendChild(titleA);
 		titleA.appendChild(titleH2);
 
@@ -209,10 +125,10 @@ function loadCard(json,pageName){
 			subtitleA.href = "#"+ title + subtitle; 	/* Notice: need symbols -> underscore */
 			subtitleH3.textContent = subtitle;
 
-			cardWrapper.appendChild(subtitleDiv);
+			cardWrapperContainerDiv.appendChild(subtitleDiv);
 			subtitleDiv.appendChild(subtitleA);
 			subtitleA.appendChild(subtitleH3);
-			cardWrapper.appendChild(cardContainer);
+			cardWrapperContainerDiv.appendChild(cardContainer);
 
 			json[pageName][title][subtitle].forEach((card)=>{
 				/* -- start card -----------------------------------*/
