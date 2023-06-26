@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-	<link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Jeffreymaomao/figure/main/fig2.ico">
+	<link rel="icon" type="image/x-icon" href="./img/icon.ico">
 	
 	<link rel="stylesheet" href="./css/normalize.css">
 	<link rel="stylesheet" href="./css/global.css">
@@ -12,6 +12,17 @@
 	<link rel="stylesheet" href="./css/main.css">
 	
 	<script src='./js/sidebar.js' defer></script>
+	<script src='./js/load.js' defer></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', ()=>{
+			fetch('../memo/content.json')
+			.then((response) => response.json())
+			.then((json) => {
+				loadSideBar(json, 'main');
+				sidebarInit();
+			})
+		});
+	</script>
 
 	<title>Jeffrey Project</title>
 </head>
@@ -40,9 +51,9 @@
 
 		<!-- Start main -->
 		<section class="main">
-			<div class="sidebar">
+			<div class="sidebar" id="sidebar">
 				<div class="container">
-					<div class="sidebar-primary-menu">
+					<!-- <div class="sidebar-primary-menu">
 						<a href="./index.html" class="sidebar-primary-item active">
 							<div class="icon-container">
 								<div class="icon main-icon"></div>
@@ -213,6 +224,9 @@
 								</li>
 							</ul>
 						</ul>
+					</div> -->
+					<div class="sidebar-primary-menu">
+						<!-- Here JS function loadSideBar() will create all the data -->
 					</div>
 				</div>
 			</div>

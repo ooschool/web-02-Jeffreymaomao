@@ -10,6 +10,11 @@
  * */
 
 function loadSideBar(json,pageName){
+	var isHome = false;
+	/* in home page */
+	if(Object.keys(json).indexOf(pageName)==-1){	
+		isHome = true;
+	}
 	const sidebar = document.querySelector("#sidebar .container .sidebar-primary-menu");
 	/* Home */
 	const primaryA = document.createElement('a');
@@ -25,7 +30,13 @@ function loadSideBar(json,pageName){
 	primaryTextDiv.classList.add("text");
 
 	primaryTextDiv.textContent = "main";
-	primaryA.href = "#!";
+	if(isHome){
+		primaryA.href = "./index.html";
+		primaryA.classList.add("active");
+	}else{
+		primaryA.href = "../index.html";
+	}
+	
 
 	sidebar.appendChild(primaryA);
 	primaryA.appendChild(primaryIconContainerDiv);
@@ -55,7 +66,11 @@ function loadSideBar(json,pageName){
 		if(pageName === page){primaryA.classList.add("active");}
 
 		primaryTextDiv.textContent = page;
-		primaryA.href = "#!";
+		if(isHome){
+			primaryA.href = "./pages/"+page+".html";
+		}else{
+			primaryA.href = "./"+page+".html";
+		}
 
 		sidebar.appendChild(primaryA);
 		sidebar.appendChild(primaryList);
@@ -76,8 +91,12 @@ function loadSideBar(json,pageName){
 			secondaryA.classList.add("text-container");
 			secondaryList.classList.add("sidebar-tertiary-menu");
 			
-			secondaryA.href = "#!";
 			secondaryA.textContent = title;
+			if(isHome){
+				secondaryA.href = "./pages/" + page + ".html#" + title;
+			}else{
+				secondaryA.href = "./" + page + ".html#" + title;
+			}
 
 			primaryList.appendChild(secondaryItem);
 			primaryList.appendChild(secondaryList);
@@ -90,8 +109,13 @@ function loadSideBar(json,pageName){
 				tertiaryItem.classList.add("sidebar-tertiary-item");
 				tertiaryA.classList.add("text-container");
 				
-				tertiaryA.href = "#!";
 				tertiaryA.textContent = subtitle;
+				tertiaryA.href = "#!";
+				if(isHome){
+					tertiaryA.href = "./pages/" + page + ".html#" + title + subtitle;
+				}else{
+					tertiaryA.href = "./" + page + ".html#" + title + subtitle;
+				}
 
 				secondaryList.appendChild(tertiaryItem);
 				tertiaryItem.appendChild(tertiaryA);
@@ -99,7 +123,6 @@ function loadSideBar(json,pageName){
 			})
 		})
 	})
-	console.log(sidebar)
 }
 
 function loadCard(json,pageName){

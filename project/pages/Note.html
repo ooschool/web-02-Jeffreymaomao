@@ -18,15 +18,15 @@
 			fetch('../memo/content.json')
 			.then((response) => response.json())
 			.then((json) => {
-				loadSideBar(json, 'Code');
-				loadCard(json, 'Code');
+				loadSideBar(json, 'Note');
+				loadCard(json, 'Note');
 				sidebarInit();
 			})
 		});
 	</script>
 
 
-	<title>Jeffrey Code</title>
+	<title>Jeffrey Note</title>
 </head>
 <body>
 	<div class="wrapper">
