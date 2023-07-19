@@ -12,9 +12,9 @@
 	<link rel="stylesheet" href="./css/main.css">
 	<link rel="stylesheet" href="./css/pages.css">
 	
-	<script src='./js/sidebar.js' defer></script>
-	<script src='./js/load.js' defer></script>
-	<script>
+	<!-- <script src='./js/sidebar.js' defer></script> -->
+	<!-- <script src='./js/load.js' defer></script> -->
+	<!-- <script>
 		document.addEventListener('DOMContentLoaded', ()=>{
 			fetch('../memo/content.json')
 			.then((response) => response.json())
@@ -57,6 +57,29 @@
 				}
 			})
 		});
+	</script> -->
+	<script src="./js/main.js"></script>
+	<script>
+		// fetch('https://script.google.com/macros/s/AKfycbwtIWCwboyUx2KCsNNMO57UmnK2dPkASH6vodqjhOn44FGf0yvBmZivv--L2JKAkDRQ-w/exec', { 
+		// 	"method": "GET",
+		// })
+		// .then((res) => {return res.text();})
+		// .then((result) => {
+		// 	const Drive = JSON.parse(result);
+		// 	main(Drive.struct);
+		// })
+		// .catch((err) => console.log("err", err));
+
+		fetch("https://script.google.com/macros/s/AKfycbzthlxe3tEoutmoz_azyjR5cQibnnaQcCgt3GBO-CgL3fwb2IMcGT9JZIYIhS30zfZ5yQ/exec", { 
+			"method": "POST",
+			"body": JSON.stringify({"a":1, "b":2, "c":"3"})
+		})
+		.then((res) => {return res.text();})
+		.then((result) => {
+			const res = JSON.parse(result);
+			console.log(res)
+		})
+		.catch((err) => console.log("err", err));
 
 	</script>
 
@@ -92,6 +115,7 @@
 			</div>
 			<div class="content" id="content">
 				<!-- Here JS function loadHome() will create all the data -->
+				
 			</div>
 		</section>
 		<!-- End main -->
@@ -99,7 +123,7 @@
 		<!-- Start footer -->
 		<footer class="footer">
 			<div class="copyright">
-				<p>© Copyright 2020 All rights reserved</p>
+				<p>© Copyright 2023 All rights reserved</p>
 			</div>
 		</footer>
 		<!-- End footer -->
