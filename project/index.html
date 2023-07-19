@@ -21,6 +21,7 @@
 			.then((json) => {
 				const primaryButtons = createSideBar(json, "main");
 				const content = document.getElementById("content");
+				
 				createHomePage(json);
 
 				for(var i=0;i<primaryButtons.length;i++){
@@ -56,6 +57,7 @@
 				}
 			})
 		});
+
 	</script>
 
 	<title>Jeffrey Project</title>
