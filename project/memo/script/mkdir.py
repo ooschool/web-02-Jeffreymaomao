@@ -16,7 +16,8 @@ except OSError as e:
     print("Error: %s - %s." % (e.filename, e.strerror))
 
 def parseSymbol(string):
-    symbols = [' ', '-', '/', '(', ')']
+    # symbols = [' ', '-', '/', '(', ')']
+    symbols = ['/']
     for symbol in symbols:
         string = string.replace(symbol, '_')
     return string
@@ -57,23 +58,27 @@ def parsePath(page,subpage,subsubpage,subsubsubpage,depth=1):
 
 
 
+print("""
+ !!! Choosing a type of structure !!!
+ -------------------------------------------------
+ depth = 1 : subsubsubpage
+ depth = 2 : page/subsubsubpage
+ depth = 3 : page/subpage/subsubsubpage
+ depth = 4 : page/subpage/subsubpage/subsubsubpage
+ -------------------------------------------------
+""")
+depth = int(input("depth = "))
 
-########################################################################
-# !!! Choosing a type of structure
-depth = 2
-# depth = 1 : subsubsubpage
-# depth = 2 : page/subsubsubpage
-# depth = 3 : page/subpage/subsubsubpage
-# depth = 4 : page/subpage/subsubpage/subsubsubpage
-########################################################################
-
-for page in data.keys():
-	for subpage in data[page].keys():
-		for subsubpage in data[page][subpage].keys():
-			for subsubsubpage in data[page][subpage][subsubpage]:
-				path = parsePath(page,subpage,subsubpage,subsubsubpage["title"],depth=depth)
-				os.makedirs(path)
-				print(path)
+if (depth in [1,2,3,4]):
+	for page in data.keys():
+		for subpage in data[page].keys():
+			for subsubpage in data[page][subpage].keys():
+				for subsubsubpage in data[page][subpage][subsubpage]:
+					path = parsePath(page,subpage,subsubpage,subsubsubpage["title"],depth=depth)
+					os.makedirs(path)
+					print(path)
+else:
+	print("depth must be 1,2,3,4.")
 
 
 
