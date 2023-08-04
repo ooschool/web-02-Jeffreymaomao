@@ -9,54 +9,8 @@
 	<link rel="stylesheet" href="./css/sidebar.css">
 	<link rel="stylesheet" href="./css/main.css">
 	<link rel="stylesheet" href="./css/pages.css">
-	
-	<!-- <script src='./js/sidebar.js' defer></script> -->
-	<!-- <script src='./js/load.js' defer></script> -->
-	<!-- <script>
-		document.addEventListener('DOMContentLoaded', ()=>{
-			fetch('../memo/content.json')
-			.then((response) => response.json())
-			.then((json) => {
-				const primaryButtons = createSideBar(json, "main");
-				const content = document.getElementById("content");
-				
-				createHomePage(json);
-
-				for(var i=0;i<primaryButtons.length;i++){
-					const btn = primaryButtons[i];
-					if(i==0){
-						btn.addEventListener("click",(e)=>{
-							content.innerHTML = '';
-							createHomePage(json);
-
-							primaryButtons.forEach((btn)=>{
-								if (btn.classList.contains("active")) {
-								  btn.classList.remove("active");
-								}
-							})
-
-							btn.classList.add("active");
-						})
-					}else{
-						btn.addEventListener("click",(e)=>{
-							content.innerHTML = '';
-							const pageName = btn.querySelector(".text").innerHTML;
-							createCard(json, pageName);
-
-							primaryButtons.forEach((btn)=>{
-								if (btn.classList.contains("active")) {
-								  btn.classList.remove("active");
-								}
-							})
-
-							btn.classList.add("active");
-						})
-					}
-				}
-			})
-		});
-	</script> -->
 	<script src="./js/main.js"></script>
+	<script src="./js/hash.js"></script>
 	<script>
 		window.addEventListener("load",e=>{
 			if(window.localStorage.NoteTree){
@@ -67,17 +21,7 @@
 			}
 		})
 
-		fetch('https://script.google.com/macros/s/AKfycbwtIWCwboyUx2KCsNNMO57UmnK2dPkASH6vodqjhOn44FGf0yvBmZivv--L2JKAkDRQ-w/exec', { 
-			"method": "GET",
-		})
-		.then((res) => {return res.text();})
-		.then((result) => {
-			const Drive = JSON.parse(result);
-			main(Drive.struct);
-			console.log("reload")
-			window.localStorage.NoteTree = JSON.stringify(Drive);
-		})
-		.catch((err) => console.log("err", err));
+		get();
 	</script>
 
 	<title>Jeffrey Project</title>

@@ -1,22 +1,34 @@
 
+const postURL = `
+https://script.google.com/macros/s/AKfycbxWWArRaUZFLi463aSDbPRHQIn_kN3HX0glmhaeer_Ryjjk9uArrT54_4-jjL10tHL3/exec
+`
+const getURL  = "https://script.google.com/macros/s/AKfycbwtIWCwboyUx2KCsNNMO57UmnK2dPkASH6vodqjhOn44FGf0yvBmZivv--L2JKAkDRQ-w/exec"
 
-function post(){
-	fetch("https://script.google.com/macros/s/AKfycbzthlxe3tEoutmoz_azyjR5cQibnnaQcCgt3GBO-CgL3fwb2IMcGT9JZIYIhS30zfZ5yQ/exec", { 
+function post(body){
+	fetch(postURL, { 
 		"method": "POST",
-		"body": JSON.stringify({
-			"password":1, // 16, 8, 判別身份 , 
-			// https://www.md5.cz    -> name+time+... -> md5 -> password
-			"b":2, "c":"3"})
+		"body": JSON.stringify(body)
 	})
 	.then((res) => {return res.text();})
 	.then((result) => {
 		const res = JSON.parse(result);
-		console.log(res)
+		console.table(res)
+	})
+	.catch((err) => console.log("err", err));
+	console.table(body);
+}
+
+function get(){
+	fetch(getURL, { "method": "GET"})
+	.then((res) => {return res.text();})
+	.then((result) => {
+		const Drive = JSON.parse(result);
+		main(Drive.struct);
+		console.log("reload");
+		window.localStorage.NoteTree = JSON.stringify(Drive);
 	})
 	.catch((err) => console.log("err", err));
 }
-
-
 
 /* --------------------------------------------- */
 function main(struct){
@@ -66,21 +78,112 @@ function loadHome(struct){
 		linkTextH1.textContent = page.name;
 	})
 
-	homeAddButton(linkBtnContainerDiv);
+	homeAddButton(linkBtnContainerDiv, struct);
 }
 
-function homeAddButton(buttonContainer){
-	const linkBtnA = document.createElement("a");
-	linkBtnA.classList.add("link-btn");
+function homeAddButton(buttonContainerDiv, struct){
+	const {linkBtnA, textContainerDiv, textH1, addIcon} = createLinkButton("#adding");
+	buttonContainerDiv.appendChild(linkBtnA);
 
-	const adddIcon= document.createElement("div");
-	adddIcon.classList.add("adding-icon");
+	/* --- */
+	linkBtnA.addEventListener("click", addFolder);
+	function addFolder(e){
+		/* --- */
+		const urlParams = new URLSearchParams(window.location.search);
+		const page = urlParams.get("page");
+		const postTime = getCurrentTime();
 
-	buttonContainer.appendChild(linkBtnA);
-	linkBtnA.appendChild(adddIcon);
+		if(page==null||page==struct.name){
+			/* --- */
+			addIcon.style.display = "none";
+			linkBtnA.classList.add("adding");
 
-	linkBtnA.href = "#!";
+			/* --- */
+			const addIinput = createAddInputButton();
+			textH1.appendChild(addInput);
+			addInput.focus();
+
+			var inputChanged = false;
+			/* --- */
+			addInput.addEventListener("input", checkInputChange);
+			function checkInputChange(){
+				inputChanged = true;
+			}
+
+			/* --- */
+			window.addEventListener('click', cancelRequest);
+			function cancelRequest(event) {
+				/* if click outside the adding card => cancel adding */
+			    if (![linkBtnA,textContainerDiv,textH1,addInput,addIcon].includes(event.target)) {
+			    	linkBtnA.classList.remove("adding");
+			    	addInput.remove();
+			    	
+			    	if(inputChanged&&addInput.value!=""){
+			    		const name = addInput.value;
+			    		const user = "Chang Mao Yang";
+			    		/* ---input content has been changed--- */
+						console.log("confirm add");
+						textH1.textContent = name;
+						addIcon.remove();
+				        homeAddButton(buttonContainerDiv, struct);
+				        /* --- */
+				        const body = {
+				        	"user": user,
+							"postTime": postTime,
+							"name": name,
+							"parent": {
+								"name": struct.name,
+								"id": struct.id,
+							},
+							"id": sha256(user+postTime)
+						}
+				        post(body);
+				        /* ---*/
+			    	}else{
+			    		/* ---input content has NOT been changed--- */
+			    		console.log("cancel add");
+						addIcon.style.display = "block";
+				        linkBtnA.classList.remove("adding");
+				        linkBtnA.addEventListener("click", addFolder);
+			    	}	
+			        window.removeEventListener('click', cancelRequest);
+			    }
+			}
+			linkBtnA.removeEventListener('click', addFolder)
+		}
+	};
 }
+
+function createLinkButton(href) {
+    const linkBtnA = document.createElement("a");
+    const textContainerDiv = document.createElement("div");
+    const textH1 = document.createElement("h1");
+    const addIcon = document.createElement("div");
+
+    linkBtnA.classList.add("link-btn");
+    textContainerDiv.classList.add("text-container");
+    textH1.classList.add("text");
+    addIcon.classList.add("adding-icon");
+
+    linkBtnA.appendChild(textContainerDiv);
+    textContainerDiv.appendChild(textH1);
+    linkBtnA.appendChild(addIcon);
+
+    linkBtnA.href = href;
+
+    return {linkBtnA, textContainerDiv, textH1, addIcon};
+}
+
+function createAddInputButton() {
+	const addInput = document.createElement("input");
+	addInput.classList.add("adding-input");
+	addInput.type = "text";
+	addInput.placeholder = "new folder";
+
+	return addInput;
+}
+
+
 
 /* --------------------------------------------- */
 function loadPage(struct, pageLocation) {
@@ -339,4 +442,18 @@ function sideBarEventListener(button){
 	})
 }
 
+/* ---------------------------------------------------------------------- */
+// tool
+function getCurrentTime() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const date = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
 
+  // 格式為 "YYYY-MM-DD HH:mm:ss"
+  const formattedDateTime = `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
+  return formattedDateTime;
+}

@@ -52,9 +52,10 @@ a {
 
 .text{
 	color: rgba(217, 217, 217, 1);
+	color: #aaa;
 }
 
-h1.text{
+h1.text, h1>input{
 	font-weight: 150;
 	font-size: 50pt;
 	padding: 12px 0px;
@@ -296,10 +297,18 @@ p.text{
 	filter: invert(94%) sepia(0%) saturate(1389%) hue-rotate(12deg) brightness(117%) contrast(63%);
 }
 
+.icon:before{
+	/* #000000 -> #aaa */
+	filter: invert(78%) sepia(3%) saturate(12%) hue-rotate(351deg) brightness(87%) contrast(91%);
+}
+
+
+
 .title-anchor-icon:after{
 	/* #000000 -> #797979 */
 	filter: invert(48%) sepia(3%) saturate(6%) hue-rotate(348deg) brightness(98%) contrast(94%);
 }
+
 .sub-title-anchor-icon:after{
 	/* #000000 -> #D0D0D0 */
 	filter: invert(94%) sepia(0%) saturate(1389%) hue-rotate(12deg) brightness(117%) contrast(63%);
