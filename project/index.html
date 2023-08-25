@@ -3,25 +3,29 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
 	<link rel="icon" type="image/x-icon" href="./img/icon.ico">
-	
 	<link rel="stylesheet" href="./css/normalize.css">
 	<link rel="stylesheet" href="./css/global.css">
 	<link rel="stylesheet" href="./css/sidebar.css">
 	<link rel="stylesheet" href="./css/main.css">
-	
-	<script src='./js/sidebar.js' defer></script>
-	<script src='./js/load.js' defer></script>
+	<link rel="stylesheet" href="./css/pages.css">
+	<link rel="stylesheet" href="./css/RWD.css">
+	<script src="./js/main.js"></script>
+	<script src="./js/subpage.js"></script>
+	<script src="./js/visualize.js"></script>
+	<script src="./js/showdown.js"></script>
+	<script src="./js/hash.js"></script>
 	<script>
-		document.addEventListener('DOMContentLoaded', ()=>{
-			fetch('../memo/content.json')
-			.then((response) => response.json())
-			.then((json) => {
-				loadSideBar(json, 'main');
-				sidebarInit();
-			})
-		});
+		window.addEventListener("load",e=>{
+			if(window.localStorage.NoteTree){
+				const NoteTree = JSON.parse(window.localStorage.NoteTree);
+				if(NoteTree.struct){
+					main(NoteTree.struct);
+				}
+			}
+		})
+
+		get();
 	</script>
 
 	<title>Jeffrey Project</title>
@@ -34,7 +38,7 @@
 				<div class="search-bar">
 					<div class="profile-info">
 						<div class="profile-img">
-							<img src="css/icon/self.png" alt="">
+							<img src="css/icon/self.png" alt=""> 
 						</div>
 						<div class="profile-name">
 							<div class="text">Chang Mao Yang</div>
@@ -52,230 +56,18 @@
 		<!-- Start main -->
 		<section class="main">
 			<div class="sidebar" id="sidebar">
-				<div class="container">
-					<!-- <div class="sidebar-primary-menu">
-						<a href="./index.html" class="sidebar-primary-item active">
-							<div class="icon-container">
-								<div class="icon main-icon"></div>
-							</div>
-							<div class="text-container">
-								<div class="text">main</div>
-							</div>
-						</a>
-						<a href="./pages/Note.html" class="sidebar-primary-item">
-							<div class="icon-container">
-								<div class="icon Note-icon"></div>
-							</div>
-							<div class="text-container">
-								<div class="text">Note</div>
-							</div>
-							<div class="btn-container">
-								<div class="icon collapsed-icon"></div>
-							</div>
-						</a>
-						<ul class="sidebar-secondary-menu">
-							<li class="sidebar-secondary-item">
-								<a href="#!" class="text-container">juinor</a>
-							</li>
-							<ul class="sidebar-tertiary-menu">
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">2nd Semester</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">1st Semester</a>
-								</li>
-							</ul>
-							<li class="sidebar-secondary-item">
-								<a href="#!" class="text-container">sophomore</a>
-							</li>
-							<ul class="sidebar-tertiary-menu">
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">2nd Semester</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">1st Semester</a>
-								</li>
-							</ul>
-							<li class="sidebar-secondary-item">
-								<a href="#!" class="text-container">freshman</a>
-							</li>
-							<ul class="sidebar-tertiary-menu">
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">2nd Semester</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">1st Semester</a>
-								</li>
-							</ul>
-							<li class="sidebar-secondary-item">
-								<a href="#!" class="text-container">highschool</a>
-							</li>
-							<ul class="sidebar-tertiary-menu">
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">2nd Semester</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">1st Semester</a>
-								</li>
-							</ul>
-							<li class="sidebar-secondary-item">
-								<a href="#!" class="text-container">others</a>
-							</li>
-							<ul class="sidebar-tertiary-menu">
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">Physics</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">Mathematics</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">Comupter Vision</a>
-								</li>
-							</ul>
-						</ul>
-						<a href="./pages/Code.html" class="sidebar-primary-item">
-							<div class="icon-container">
-								<div class="icon Code-icon"></div>
-							</div>
-							<div class="text-container">
-								<div class="text">Code</div>
-							</div>
-							<div class="btn-container">
-								<div class="icon collapsed-icon"></div>
-							</div>
-						</a>
-						<ul class="sidebar-secondary-menu">
-							<li class="sidebar-secondary-item">
-								<a href="#!" class="text-container">Programming</a>
-							</li>
-							<ul class="sidebar-tertiary-menu">
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">Python</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">JavaScript</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">Processing</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">C</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">C++</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">MATLAB</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">GLSL</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">Desmos</a>
-								</li>
-							</ul>
-							<li class="sidebar-secondary-item">
-								<a href="#!" class="text-container">Markup</a>
-							</li>
-							<ul class="sidebar-tertiary-menu">
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">LaTeX</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">Mardown</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">HTML</a>
-								</li>
-							</ul>
-						</ul>
-						<a href="./pages/Others.html" class="sidebar-primary-item">
-							<div class="icon-container">
-								<div class="icon Others-icon"></div>
-							</div>
-							<div class="text-container">
-								<div class="text">Others</div>
-							</div>
-							<div class="btn-container">
-								<div class="icon collapsed-icon"></div>
-							</div>
-						</a>
-						<ul class="sidebar-secondary-menu">
-							<li class="sidebar-secondary-item">
-								<a href="#!" class="text-container">Art</a>
-							</li>
-							<ul class="sidebar-tertiary-menu">
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">Blender</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">Hand Writing</a>
-								</li>
-							</ul>
-							<li class="sidebar-secondary-item">
-								<a href="#!" class="text-container">Skate</a>
-							</li>
-							<ul class="sidebar-tertiary-menu">
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">Clips</a>
-								</li>
-								<li class="sidebar-tertiary-item">
-									<a href="#!" class="text-container">Videos</a>
-								</li>
-							</ul>
-						</ul>
-					</div> -->
-					<div class="sidebar-primary-menu">
-						<!-- Here JS function loadSideBar() will create all the data -->
-					</div>
-				</div>
+				<!-- Here JS function loadSideBar() will create all the data -->
 			</div>
-			<div class="content">
-				<div id="link-wrapper" class="hero">
-					<div class="container">
-						<div class="link-btn-container">
-							<a href="#!" class="link-btn">
-								<div class="text-container">
-									<h1 class="text">Note</h1>
-								</div>
-							</a>
-							<a href="#!" class="link-btn">
-								<div class="text-container">
-									<h1 class="text">Code</h1>
-								</div>
-							</a>
-							<a href="#!" class="link-btn">
-								<div class="text-container">
-									<h1 class="text">Others</h1>
-								</div>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div id="about-wrapper" class="hero">
-					<div class="mask-dark"></div>
-					<div class="container">
-						<div class="about-container">
-							<h1 id="about-title" class="text">About</h1>
-							<div class="text-container">
-								<div class="text">
-									Lorem ipsum dolor, sit amet consectetur, adipisicing elit. Quisquam alias molestias libero eos cumque labore culpa, expedita dolore deserunt adipisci ut temporibus omnis voluptatum molestiae, quia delectus optio architecto voluptatibus.
-									Minus facilis voluptates ab possimus libero labore ex nemo rem commodi, distinctio nobis delectus eos, incidunt, cumque adipisci hic temporibus doloribus ad quae odit natus. Ipsam tempora labore ex suscipit!
-									Magnam nihil similique at iste, odit, provident. Accusantium fugit corrupti velit doloribus nihil praesentium ea iure beatae, repellat inventore fuga assumenda cum voluptatem nostrum eos ut perferendis eveniet quas molestiae.
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+			<div class="content" id="content">
+				<!-- Here JS function loadHome() will create all the data -->
 			</div>
-
 		</section>
 		<!-- End main -->
 
 		<!-- Start footer -->
 		<footer class="footer">
 			<div class="copyright">
-				<p>© Copyright 2020 All rights reserved</p>
+				<p>© Copyright 2023 All rights reserved</p>
 			</div>
 		</footer>
 		<!-- End footer -->
