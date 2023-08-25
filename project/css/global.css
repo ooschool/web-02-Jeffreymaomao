@@ -62,7 +62,7 @@ h1.text, h1>input{
 	color: #D9D9D9;
 }
 
-h2.text{
+h2.text, h2>input{
 	font-size: 40px;
 	font-weight: 400;
 	line-height: 48px;
@@ -70,12 +70,21 @@ h2.text{
 	color: #797979;
 }
 
-h3.text{
+h3.text, h3>input{
 	font-size: 30px;
 	font-weight: 300;
 	line-height: 36px;
 	letter-spacing: 0em;
 	text-align: center;
+}
+
+h4.text, h4>input{
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 24px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #b0b0b0;
 }
 
 p.text{
@@ -140,26 +149,6 @@ p.text{
     width: 100%;
 }
 
-/* -------------------------- *\
-	RWD
-\* -------------------------- */
-
-/* xl -()- lg -(768px)- md -()- sm -()- xs */
-
-@media screen and (max-width: 768px){
-	.col-md-3{
-		width: 25%;
-	}
-	.col-md-4{
-		width: 33.3333333%;
-	}
-	.col-md-6{
-		width: 50%;
-	}
-	.col-md-12{
-		width: 100%;
-	}
-}
 
 /* -------------------------- *\
 	Component

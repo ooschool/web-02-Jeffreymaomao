@@ -1,44 +1,70 @@
+const user = "Chang Mao Yang";
 
 const postURL = `
 https://script.google.com/macros/s/AKfycbxWWArRaUZFLi463aSDbPRHQIn_kN3HX0glmhaeer_Ryjjk9uArrT54_4-jjL10tHL3/exec
 `
 const getURL  = "https://script.google.com/macros/s/AKfycbwtIWCwboyUx2KCsNNMO57UmnK2dPkASH6vodqjhOn44FGf0yvBmZivv--L2JKAkDRQ-w/exec"
 
+const loadedFile = new Object();
+
 function post(body){
-	fetch(postURL, { 
-		"method": "POST",
-		"body": JSON.stringify(body)
-	})
-	.then((res) => {return res.text();})
-	.then((result) => {
-		const res = JSON.parse(result);
-		console.table(res)
-	})
-	.catch((err) => console.log("err", err));
+	// fetch(postURL, { 
+	// 	"method": "POST",
+	// 	"body": JSON.stringify(body)
+	// })
+	// .then((res) => {return res.text();})
+	// .then((result) => {
+	// 	const res = JSON.parse(result);
+	// 	console.table(res)
+	// })
+	// .catch((err) => console.log("err", err));
+	// console.table(body);
 	console.table(body);
 }
 
-function get(){
-	fetch(getURL, { "method": "GET"})
-	.then((res) => {return res.text();})
-	.then((result) => {
-		const Drive = JSON.parse(result);
-		main(Drive.struct);
-		console.log("reload");
-		window.localStorage.NoteTree = JSON.stringify(Drive);
-	})
-	.catch((err) => console.log("err", err));
-}
+function get(id=null){
+	const fetchURL = id ? getURL + '?id=' + id : getURL;
+	if(loadedFile[id]){
+		return new Promise((resolve, reject) => {
+			resolve(loadedFile[id]);
+		});
+	}
 
+	return fetch(fetchURL, { "method": "GET"})
+		.then((res) => {return res.text();})
+		.then((result) => {
+			const Drive = JSON.parse(result);
+
+			if(Drive.file){
+				loadedFile[Drive.file.id] = Drive.file;
+				return Drive.file;
+			}
+
+			if(Drive.struct){
+				main(Drive.struct);
+				window.localStorage.NoteTree = JSON.stringify(Drive);
+				console.log("reload");
+			}
+		})
+		.catch((err) => {
+			console.log("err", err);
+			return null;
+		});
+}
 /* --------------------------------------------- */
 function main(struct){
 	const urlParams = new URLSearchParams(window.location.search);
 	const page = urlParams.get("page");
-	const isHome = (page === struct.name)||(!page); 
+	const subpage = urlParams.get("subpage");
+	const isHome = ((page === struct.id)||(!page))&&(!subpage); 
 	if(isHome){
 		loadHome(struct);
-	}else{
+	}
+	if(page){
 		loadPage(struct, page);
+	}
+	if(subpage){
+		loadSubPage(struct, subpage)
 	}
 	loadSideBar(struct, page);
 }
@@ -62,28 +88,39 @@ function loadHome(struct){
 	linkBtnContainerDiv.classList.add("link-btn-container");
 
 	struct.children.forEach((page)=>{
-		const linkBtnA = document.createElement("a");
-		const linkTextContainerDiv = document.createElement("div");
-		const linkTextH1 = document.createElement("h1");
-
-		linkBtnA.classList.add("link-btn");
-		linkTextContainerDiv.classList.add("text-container");
-		linkTextH1.classList.add("text");
-
-		linkBtnContainerDiv.appendChild(linkBtnA);
-		linkBtnA.appendChild(linkTextContainerDiv);
-		linkTextContainerDiv.appendChild(linkTextH1);
-
-		linkBtnA.href = `?page=${page.name}`;
-		linkTextH1.textContent = page.name;
+		createLinkButton(page.name, `?page=${page.id}`, linkBtnContainerDiv);
 	})
 
 	homeAddButton(linkBtnContainerDiv, struct);
 }
 
+function createLinkButton(name, href, linkBtnContainerDiv) {
+	const linkBtnA = document.createElement("a");
+	const linkTextContainerDiv = document.createElement("div");
+	const linkTextH1 = document.createElement("h1");
+
+	linkBtnA.classList.add("link-btn");
+	linkTextContainerDiv.classList.add("text-container");
+	linkTextH1.classList.add("text");
+
+	linkBtnContainerDiv.appendChild(linkBtnA);
+	linkBtnA.appendChild(linkTextContainerDiv);
+	linkTextContainerDiv.appendChild(linkTextH1);
+
+	linkBtnA.href = href;
+	if(name){
+		linkTextH1.textContent = name;
+	}
+	if(!name&&href=="#adding"){
+		const addIcon = document.createElement("div")
+		addIcon.classList.add("adding-icon");
+		linkBtnA.appendChild(addIcon);
+		return {linkBtnA, linkTextContainerDiv, linkTextH1, addIcon}
+	}
+}
+
 function homeAddButton(buttonContainerDiv, struct){
-	const {linkBtnA, textContainerDiv, textH1, addIcon} = createLinkButton("#adding");
-	buttonContainerDiv.appendChild(linkBtnA);
+	const {linkBtnA, linkTextContainerDiv, linkTextH1, addIcon} = createLinkButton(undefined, "#adding", buttonContainerDiv);
 
 	/* --- */
 	linkBtnA.addEventListener("click", addFolder);
@@ -93,37 +130,39 @@ function homeAddButton(buttonContainerDiv, struct){
 		const page = urlParams.get("page");
 		const postTime = getCurrentTime();
 
-		if(page==null||page==struct.name){
+		if(page==null||page==struct.id){
 			/* --- */
 			addIcon.style.display = "none";
 			linkBtnA.classList.add("adding");
 
 			/* --- */
-			const addIinput = createAddInputButton();
-			textH1.appendChild(addInput);
+			const addInput = createAddInputButton();
+			linkTextH1.appendChild(addInput);
 			addInput.focus();
 
-			var inputChanged = false;
 			/* --- */
-			addInput.addEventListener("input", checkInputChange);
-			function checkInputChange(){
+			var inputChanged = false;
+			addInput.addEventListener("keypress", checkInputChange);
+			function checkInputChange(e){
 				inputChanged = true;
+				if(e.key=="Enter"){
+					homeAddPost({"target":[]});
+				}
 			}
 
 			/* --- */
-			window.addEventListener('click', cancelRequest);
-			function cancelRequest(event) {
+			window.addEventListener('click', homeAddPost);
+			function homeAddPost(event) {
 				/* if click outside the adding card => cancel adding */
-			    if (![linkBtnA,textContainerDiv,textH1,addInput,addIcon].includes(event.target)) {
+			    if (![linkBtnA,linkTextContainerDiv,linkTextH1,addInput,addIcon].includes(event.target)) {
 			    	linkBtnA.classList.remove("adding");
 			    	addInput.remove();
 			    	
 			    	if(inputChanged&&addInput.value!=""){
 			    		const name = addInput.value;
-			    		const user = "Chang Mao Yang";
 			    		/* ---input content has been changed--- */
 						console.log("confirm add");
-						textH1.textContent = name;
+						linkTextH1.textContent = name;
 						addIcon.remove();
 				        homeAddButton(buttonContainerDiv, struct);
 				        /* --- */
@@ -146,32 +185,12 @@ function homeAddButton(buttonContainerDiv, struct){
 				        linkBtnA.classList.remove("adding");
 				        linkBtnA.addEventListener("click", addFolder);
 			    	}	
-			        window.removeEventListener('click', cancelRequest);
+			        window.removeEventListener('click', homeAddPost);
 			    }
 			}
 			linkBtnA.removeEventListener('click', addFolder)
 		}
 	};
-}
-
-function createLinkButton(href) {
-    const linkBtnA = document.createElement("a");
-    const textContainerDiv = document.createElement("div");
-    const textH1 = document.createElement("h1");
-    const addIcon = document.createElement("div");
-
-    linkBtnA.classList.add("link-btn");
-    textContainerDiv.classList.add("text-container");
-    textH1.classList.add("text");
-    addIcon.classList.add("adding-icon");
-
-    linkBtnA.appendChild(textContainerDiv);
-    textContainerDiv.appendChild(textH1);
-    linkBtnA.appendChild(addIcon);
-
-    linkBtnA.href = href;
-
-    return {linkBtnA, textContainerDiv, textH1, addIcon};
 }
 
 function createAddInputButton() {
@@ -182,8 +201,6 @@ function createAddInputButton() {
 
 	return addInput;
 }
-
-
 
 /* --------------------------------------------- */
 function loadPage(struct, pageLocation) {
@@ -201,23 +218,30 @@ function loadPage(struct, pageLocation) {
     cardWrapperDiv.appendChild(cardWrapperContainerDiv);
 
     struct.children.forEach((page) => {
-        if (page.name === pageLocation) {
+        if (page.id === pageLocation) {
             page.children.forEach((title) => {
+            	/* add title */
                 const titleDiv = createTitle(title);
                 cardWrapperContainerDiv.appendChild(titleDiv);
 
                 title.children.forEach((subtitle) => {
+                	/* add subtitle */
 	                const { subtitleDiv, cardContainer } = createSubtitle(subtitle);
                     subtitle.children.forEach((card) => {
-                        createCard(card, cardContainer);
+                    	/* add card */
+                        createCard(card.name, `?subpage=${card.id}`, cardContainer);
                     });
-                    // cardAddButton(cardContainer);
+                    cardAddButton(cardContainer, struct);
 
 	                cardWrapperContainerDiv.appendChild(subtitleDiv);
 	                cardWrapperContainerDiv.appendChild(cardContainer);
                 });
-
             });
+            // const TitleAddButton = createTitle();
+            // cardWrapperContainerDiv.appendChild(TitleAddButton);
+
+            // const SubTitleAddButton = createSubtitle();
+            // cardWrapperContainerDiv.appendChild(SubTitleAddButton);
         }
     });
 }
@@ -228,15 +252,23 @@ function createTitle(title) {
     const titleH2 = document.createElement('h2');
 
     titleDiv.classList.add("text-container", "title");
-    titleH2.classList.add("text", "title-anchor-icon");
-
-    titleDiv.id = title.id;
-    titleA.href = "#" + title.id;
-    titleH2.textContent = title.name;
+    titleH2.classList.add("text");
 
     titleDiv.appendChild(titleA);
     titleA.appendChild(titleH2);
 
+    if(title){
+	    titleH2.classList.add("title-anchor-icon");
+    	titleDiv.id = title.id;
+	    titleA.href = "#" + title.id;
+	    titleH2.textContent = title.name;
+    }
+    else{
+    	const addIcon = document.createElement("div");
+		addIcon.classList.add("adding-icon");
+		titleA.appendChild(addIcon);
+		titleH2.textContent = "add new title"
+    }
     return titleDiv;
 }
 
@@ -244,61 +276,128 @@ function createSubtitle(subtitle) {
     const subtitleDiv = document.createElement('div');
     const subtitleA = document.createElement('a');
     const subtitleH3 = document.createElement('h3');
-    const cardContainer = document.createElement('div');
 
     subtitleDiv.classList.add("text-container", "sub-title");
-    subtitleH3.classList.add("text", "sub-title-anchor-icon");
-    cardContainer.classList.add("card-container", "row");
-
-    subtitleDiv.id = subtitle.id;
-    subtitleA.href = "#" + subtitle.id;
-    subtitleH3.textContent = subtitle.name;
+    subtitleH3.classList.add("text");
 
     subtitleDiv.appendChild(subtitleA);
     subtitleA.appendChild(subtitleH3);
 
+    if(subtitle){
+    	subtitleDiv.id = subtitle.id;
+	    subtitleA.href = "#" + subtitle.id;
+	    subtitleH3.textContent = subtitle.name;
+	    subtitleH3.classList.add("sub-title-anchor-icon");
+    }else{
+    	const addIcon = document.createElement("div");
+		addIcon.classList.add("adding-icon");
+		subtitleA.appendChild(addIcon);
+    	subtitleH3.textContent = "add new subtitle";
+    	return subtitleDiv;
+    }
+
+    const cardContainer = document.createElement('div');
+    cardContainer.classList.add("card-container", "row");
+
     return { subtitleDiv, cardContainer };
 }
 
-function createCard(card, cardContainer) {
+function createCard(name, href, cardContainer) {
     const cardDiv = document.createElement('div');
+    cardDiv.classList.add("col-lg-4", "col-md-6","col-sm-12");
+
     const cardA = document.createElement('a');
-    const cardImgDiv = document.createElement('div');
-    const cardCaptionDiv = document.createElement('div');
-    const cardImg = document.createElement('img');
-
-    cardDiv.classList.add("col-lg-4", "col-md-6");
     cardA.classList.add("card");
-    cardImgDiv.classList.add("img-container");
-    cardCaptionDiv.classList.add("card-caption");
-    cardImg.classList.add("card-img");
+    cardA.href = href;
 
-    cardCaptionDiv.textContent = card.name;
-    cardImg.src = "./img/default.png";
+    const cardImgDiv = document.createElement('div');
+    cardImgDiv.classList.add("img-container");
+
+    const cardCaptionH4 = document.createElement('h4');
+    cardCaptionH4.classList.add("card-caption", "text");
+
+    const cardImg = document.createElement('img');
+    cardImg.classList.add("card-img");
 
     cardContainer.appendChild(cardDiv);
     cardDiv.appendChild(cardA);
     cardA.appendChild(cardImgDiv);
-    cardA.appendChild(cardCaptionDiv);
+    cardA.appendChild(cardCaptionH4);
     cardImgDiv.appendChild(cardImg);
+
+    if(name){
+	    cardCaptionH4.textContent = name;
+	    cardImg.src = "./img/default.png";
+    }
+    if(!name&&href=="#adding"){
+    	const addIcon = document.createElement("div");
+		addIcon.classList.add("adding-icon");
+		cardA.appendChild(addIcon);
+		return {cardDiv, cardA, cardImgDiv, cardCaptionH4, cardImg, addIcon}
+    }
 }
 
-function cardAddButton(cardContainer){
-	const cardDiv = document.createElement('div');
-	cardDiv.classList.add("col-lg-4","col-md-6");
+function cardAddButton(cardContainer, struct){
+	const {cardDiv, cardA, cardImgDiv, cardCaptionH4, cardImg, addIcon} = createCard(undefined, "#adding", cardContainer);
+	/* --- */
+	cardDiv.addEventListener("click", addFolder);
+	function addFolder(e){
+		const urlParams = new URLSearchParams(window.location.search);
+		const page = urlParams.get("page");
+		const subtitle = cardDiv.parentNode.previousSibling;
+		const postTime = getCurrentTime();
 
-	const cardA = document.createElement('a');
-	cardA.classList.add("card");
+		/* --- */
+		const addInput = createAddInputButton();
+		cardCaptionH4.appendChild(addInput);
+		addInput.focus();
 
-	const adddIcon = document.createElement("div");
-	adddIcon.classList.add("adding-icon");
+		var inputChanged = false;
+		addInput.addEventListener("keypress", checkInputChange);
+		function checkInputChange(e){
+			inputChanged = true;
+			if(e.key=="Enter"){
+				cardAddPost({"target":[]});
+			}
+		}
+		
+		window.addEventListener('click', cardAddPost);
+		function cardAddPost(event){
+			addIcon.style.display = "none";
+			if(![cardDiv, cardA, cardImgDiv, cardCaptionH4, cardImg, addIcon].includes(event.target)){
+				addInput.remove();
+				if(inputChanged&&addInput.value!=""){
+					const name = addInput.value;
+					/* ---input content has been changed--- */
+					console.log("confirm add");
+					cardAddButton(cardContainer, struct);
+				    cardImg.src = "./img/default.png";
+					cardCaptionH4.textContent = addInput.value;
 
-	cardContainer.appendChild(cardDiv);
-	cardDiv.appendChild(cardA);
-	cardA.appendChild(adddIcon);
+					const body = {
+			        	"user": user,
+						"postTime": postTime,
+						"name": name,
+						"parent": {
+							"id": subtitle.id,
+							"name": subtitle.firstChild.textContent,
+						},
+						"id": sha256(user+postTime)
+					}
+					post(body);
+				}else{
+					/* ---input content has NOT been changed--- */
+		    		console.log("cancel add");
+					addIcon.style.display = "block";
+			        cardDiv.classList.remove("adding");
+			        cardDiv.addEventListener("click", addFolder);
+				}
+				window.removeEventListener('click', cardAddPost);
+			}
+		}
+		cardDiv.removeEventListener('click', addFolder);
+	}
 }
-
-
 
 /* --------------------------------------------- */
 /* sidebar */
@@ -317,17 +416,17 @@ function loadSideBar(struct, pageLocation){
 
 
 	/* home */
-	var isHome = pageLocation === struct.name || !pageLocation; // if page is root or undefined
+	var isHome = pageLocation === struct.id || !pageLocation; // if page is root or undefined
 
 	const sidebarItems = [];
 	sidebarItems.push(
-		createSidebarItem(struct, `?page=${struct.name}`, isActive=isHome, expandBtn=false)
+		createSidebarItem(struct, `?page=${struct.id}`, isActive=isHome, expandBtn=false)
 	);
 	/* page */
 	struct.children.forEach((page)=>{
-		const active = pageLocation===page.name;
+		const active = pageLocation===page.id;
 		sidebarItems.push(
-			createSidebarItem(page, `?page=${page.name}`, isActive=active, expandBtn=true)
+			createSidebarItem(page, `?page=${page.id}`, isActive=active, expandBtn=true)
 		);
 		sidebarItems.push(
 			createNestedList(page)
@@ -406,7 +505,7 @@ function createNestedList(page) {
 
 
 		listItemA.textContent = item.name;
-		listItemA.href = `?page=${page.name}#${item.id}`
+		listItemA.href = `?page=${page.id}#${item.id}`
 
 		item.children.forEach(sub=>{
 			const subItem = document.createElement('li');
@@ -419,7 +518,7 @@ function createNestedList(page) {
 			subItem.appendChild(subItemA);
 
 			subItemA.textContent = sub.name;
-			subItemA.href = `?page=${page.name}#${sub.id}`;
+			subItemA.href = `?page=${page.id}#${sub.id}`;
 		})
 	});
 
@@ -444,6 +543,21 @@ function sideBarEventListener(button){
 
 /* ---------------------------------------------------------------------- */
 // tool
+function findPreviousElementSiblingWithClass(element, className) {
+  let previousSibling = element.previousElementSibling;
+  console.log(previousSibling)
+  
+  while (previousSibling) {
+    if (previousSibling.classList.contains(className)) {
+      return previousSibling;
+    }
+    
+    previousSibling = previousSibling.previousElementSibling;
+  }
+  
+  return null;
+}
+
 function getCurrentTime() {
   const now = new Date();
   const year = now.getFullYear();
