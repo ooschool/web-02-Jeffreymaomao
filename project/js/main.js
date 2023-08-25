@@ -59,11 +59,9 @@ function main(struct){
 	const isHome = ((page === struct.id)||(!page))&&(!subpage); 
 	if(isHome){
 		loadHome(struct);
-	}
-	if(page){
+	}else if(page){
 		loadPage(struct, page);
-	}
-	if(subpage){
+	}else if(subpage){
 		loadSubPage(struct, subpage)
 	}
 	loadSideBar(struct, page);
