@@ -41,8 +41,6 @@
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25),
 				0px 0px 10px 1px rgba(0, 0, 0, 0.25) inset ;
 	border-radius: 10px;
-
-	transition: 0.2s;
 }
 
 .link-btn .text-container{
@@ -62,27 +60,4 @@
 
 #about-title{
 	color: #fff;
-}
-
-
-/* -------------------------- */
-.link-btn.adding{
-	height: 200px;
-	box-shadow: 0px 0px 20px rgba(255, 255, 0, 0.5),
-				0px 0px 10px 1px rgba(0, 0, 0, 0.25) inset ;
-}
-
-.adding-input{
-	border: 0;
-	padding: 0;
-	margin: 0;
-	background-color: rgba(0, 0, 0, 0);
-}
-
-.adding-input:focus {
-    outline: none;
-}
-
-::placeholder { /* CSS 3 標準 */
-	color: #ccc;
 }
