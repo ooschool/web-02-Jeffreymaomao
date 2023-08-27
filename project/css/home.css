@@ -37,13 +37,19 @@
 	margin-bottom: 30px;
 	border-radius: 10px;
 
-	background: #FFFFFF;
+	background: #fff;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25),
 				0px 0px 10px 1px rgba(0, 0, 0, 0.25) inset ;
 	border-radius: 10px;
 
 	transition: 0.2s;
+	overflow: hidden;
 }
+
+.link-btn .link-img{
+	opacity: 0.8;
+}
+
 
 .link-btn .text-container{
 	position: absolute;
@@ -68,8 +74,6 @@
 /* -------------------------- */
 .link-btn.adding{
 	height: 200px;
-	box-shadow: 0px 0px 20px rgba(255, 255, 0, 0.5),
-				0px 0px 10px 1px rgba(0, 0, 0, 0.25) inset ;
 }
 
 .adding-input{
@@ -86,3 +90,17 @@
 ::placeholder { /* CSS 3 標準 */
 	color: #ccc;
 }
+
+
+/* -------------------------- *\
+	animation
+\* -------------------------- */
+
+.link-btn:hover{
+	transform: translate(0px, -5px);
+}
+.link-btn:active{
+	transform: translate(0px, 0px);
+}
+
+

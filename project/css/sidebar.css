@@ -169,13 +169,16 @@
 	animation
 \* -------------------------- */
 
-
+.sidebar-primary-item:hover .icon{
+	transform: scale(1.1);
+}
 
 /* -------------------------- *\
 	Icon
 \* -------------------------- */
 
 .icon {
+	transition: 0.2s;
 }
 
 .main-icon:before{
