@@ -15,20 +15,24 @@
 	<link rel="stylesheet" href="./css/RWD.css">
 
 	<script src="./js/main.js"></script>
-	<script src="./js/sidebar.js"></script>
-	<script src="./js/home.js"></script>
-	<script src="./js/page.js"></script>
-	<script src="./js/subpage.js"></script>
 
-	<script src="./js/visualize.js"></script>
-	<script src="./js/showdown.js"></script>
-	<script src="./js/hash.js"></script>
+	<script src="./js/component/sidebar.js"></script>
+	<script src="./js/component/home.js"></script>
+	<script src="./js/component/page.js"></script>
+	<script src="./js/component/subpage.js"></script>
+
+	<script src="./js/utility/visualize.js"></script>
+
+	<script src="./js/lib/showdown.js"></script>
+	<script src="./js/lib/hash.js"></script>
 	<script>
 		window.addEventListener("load",e=>{
 			if(window.localStorage.NoteTree){
 				const NoteTree = JSON.parse(window.localStorage.NoteTree);
 				if(NoteTree.struct){
+
 					main(NoteTree.struct);
+					console.log("first load from localStorage !")
 				}
 			}
 		})

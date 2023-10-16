@@ -2,27 +2,29 @@ function loadSubPage(struct, subpageId){
 	const content = document.getElementById("content");
 	content.innerHTML = "";
 	struct.children.forEach((page)=>{
-		page.children.forEach((title)=>{
-			title.children.forEach((subtitle)=>{
-				subtitle.children.forEach((subpage)=>{
-					if(subpage.id==subpageId){
-						/* ---------------------------------------- */
-						const cardWrapperDiv = document.createElement("div");
-					    cardWrapperDiv.classList.add("hero");
-					    cardWrapperDiv.id = "card-wrapper";
+		if(page.MimeType.includes("directory")){
+			page.children.forEach((title)=>{
+				title.children.forEach((subtitle)=>{
+					subtitle.children.forEach((subpage)=>{
+						if(subpage.id==subpageId){
+							/* ---------------------------------------- */
+							const cardWrapperDiv = document.createElement("div");
+						    cardWrapperDiv.classList.add("hero");
+						    cardWrapperDiv.id = "card-wrapper";
 
-					    const cardWrapperContainerDiv = document.createElement("div");
-					    cardWrapperContainerDiv.classList.add("container");
+						    const cardWrapperContainerDiv = document.createElement("div");
+						    cardWrapperContainerDiv.classList.add("container");
 
-					    content.appendChild(cardWrapperDiv);
-					    cardWrapperDiv.appendChild(cardWrapperContainerDiv);
+						    content.appendChild(cardWrapperDiv);
+						    cardWrapperDiv.appendChild(cardWrapperContainerDiv);
 
-						mainSubPage(subpage, cardWrapperContainerDiv);
-						/* ---------------------------------------- */
-					}
+							mainSubPage(subpage, cardWrapperContainerDiv);
+							/* ---------------------------------------- */
+						}
+					})
 				})
 			})
-		})
+		}
 	})
 }
 

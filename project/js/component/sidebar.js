@@ -23,24 +23,26 @@ function loadSideBar(struct, pageLocation, subpageLocation){
 	);
 	/* page */
 	struct.children.forEach((page)=>{
-		var active = pageLocation===page.id;
-		if(!active){
-			page.children.forEach((title)=>{
-				title.children.forEach((subtitle)=>{
-					subtitle.children.forEach((subpage)=>{
-						if(subpageLocation===subpage.id){
-							active = true;
-						}
+		if(page.MimeType.includes("directory")){
+			var active = pageLocation===page.id;
+			if(!active){
+				page.children.forEach((title)=>{
+					title.children.forEach((subtitle)=>{
+						subtitle.children.forEach((subpage)=>{
+							if(subpageLocation===subpage.id){
+								active = true;
+							}
+						})
 					})
 				})
-			})
+			}
+			sidebarItems.push(
+				createSidebarItem(page, `?page=${page.id}`, isActive=active, expandBtn=true)
+			);
+			sidebarItems.push(
+				createNestedList(page)
+			);
 		}
-		sidebarItems.push(
-			createSidebarItem(page, `?page=${page.id}`, isActive=active, expandBtn=true)
-		);
-		sidebarItems.push(
-			createNestedList(page)
-		);
 	})
 
 	sidebarListDiv.append(...sidebarItems);

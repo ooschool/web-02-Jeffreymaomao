@@ -18,7 +18,9 @@ function loadHome(struct){
 	linkBtnContainerDiv.classList.add("link-btn-container");
 
 	struct.children.forEach((page)=>{
-		createLinkButton(page.name, `?page=${page.id}`, linkBtnContainerDiv);
+		if(page.MimeType.includes("directory")){
+			createLinkButton(page.name, `?page=${page.id}`, linkBtnContainerDiv);
+		}
 	})
 
 	homeAddButton(linkBtnContainerDiv, struct);

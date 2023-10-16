@@ -14,7 +14,7 @@ function loadPage(struct, pageLocation) {
     cardWrapperDiv.appendChild(cardWrapperContainerDiv);
 
     struct.children.forEach((page) => {
-        if (page.id === pageLocation) {
+        if (page.MimeType.includes("directory") && page.id === pageLocation ) {
             page.children.forEach((title) => {
             	/* add title */
                 const titleDiv = createTitle(title);
