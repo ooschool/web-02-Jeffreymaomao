@@ -16,20 +16,18 @@ window.addEventListener("load", e => {
             console.log("first load from localStorage !")
         }
     }
+    get(user).then((Drive) => {
+		Drive.struct.user = user;
+		main(Drive.struct);
+		window.localStorage.NoteTree = JSON.stringify(Drive);
+	}).catch((error) => {
+	    console.error(error);
+	});
 });
-
-get(user).then((Drive) => {
-	Drive.struct.user = user;
-	main(Drive.struct);
-	window.localStorage.NoteTree = JSON.stringify(Drive);
-}).catch((error) => {
-    console.error(error);
-});
-
 
 /* --------------------------------------------- */
 function main(struct){
-	console.log("parse struct")
+	console.log("parse struct");
 	const urlParams = new URLSearchParams(window.location.search);
 	const page = urlParams.get("page");
 	const subpage = urlParams.get("subpage");
