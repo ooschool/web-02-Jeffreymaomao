@@ -11,33 +11,10 @@
 	<link rel="stylesheet" href="./css/sidebar.css">
 	<link rel="stylesheet" href="./css/home.css">
 	<link rel="stylesheet" href="./css/pages.css">
-
 	<link rel="stylesheet" href="./css/RWD.css">
 
-	<script src="./js/main.js"></script>
-
-	<script src="./js/component/sidebar.js"></script>
-	<script src="./js/component/home.js"></script>
-	<script src="./js/component/page.js"></script>
-	<script src="./js/component/subpage.js"></script>
-
-	<script src="./js/utility/visualize.js"></script>
-
 	<script src="./js/lib/showdown.js"></script>
-	<script src="./js/lib/hash.js"></script>
-	<script>
-		window.addEventListener("load",e=>{
-			if(window.localStorage.NoteTree){
-				const NoteTree = JSON.parse(window.localStorage.NoteTree);
-				if(NoteTree.struct){
-
-					main(NoteTree.struct);
-					console.log("first load from localStorage !")
-				}
-			}
-		})
-		get();
-	</script>
+	<script type="module" src="./js/main.js"></script>
 
 	<title>Jeffrey Project</title>
 </head>

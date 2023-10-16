@@ -1,3 +1,6 @@
+import {post} from "../utility/post.js"
+import {createAddInputButton} from "../utility/tools.js"
+
 /* --------------------------------------------- */
 function loadHome(struct){
 	const content = document.getElementById("content");
@@ -65,7 +68,6 @@ function homeAddButton(buttonContainerDiv, struct){
 		/* --- */
 		const urlParams = new URLSearchParams(window.location.search);
 		const page = urlParams.get("page");
-		const postTime = getCurrentTime();
 
 		if(page==null||page==struct.id){
 			/* --- */
@@ -104,16 +106,13 @@ function homeAddButton(buttonContainerDiv, struct){
 				        homeAddButton(buttonContainerDiv, struct);
 				        /* --- */
 				        const body = {
-				        	"user": user,
-							"postTime": postTime,
 							"name": name,
 							"parent": {
 								"name": struct.name,
 								"id": struct.id,
-							},
-							"id": sha256(user+postTime)
+							}
 						}
-				        post(body);
+				        post(struct.user, body);
 				        /* ---*/
 			    	}else{
 			    		/* ---input content has NOT been changed--- */
@@ -130,11 +129,4 @@ function homeAddButton(buttonContainerDiv, struct){
 	};
 }
 
-function createAddInputButton() {
-	const addInput = document.createElement("input");
-	addInput.classList.add("adding-input");
-	addInput.type = "text";
-	addInput.placeholder = "new folder";
-
-	return addInput;
-}
+export {loadHome, createLinkButton, homeAddButton, createAddInputButton};

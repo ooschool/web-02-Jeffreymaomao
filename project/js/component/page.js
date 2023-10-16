@@ -1,3 +1,6 @@
+import {post} from "../utility/post.js"
+import {createAddInputButton} from "../utility/tools.js"
+
 /* --------------------------------------------- */
 function loadPage(struct, pageLocation) {
     const content = document.getElementById("content");
@@ -141,7 +144,6 @@ function cardAddButton(cardContainer, struct){
 		const urlParams = new URLSearchParams(window.location.search);
 		const page = urlParams.get("page");
 		const subtitle = cardDiv.parentNode.previousSibling;
-		const postTime = getCurrentTime();
 
 		/* --- */
 		const addInput = createAddInputButton();
@@ -171,16 +173,13 @@ function cardAddButton(cardContainer, struct){
 					cardCaptionH4.textContent = addInput.value;
 
 					const body = {
-			        	"user": user,
-						"postTime": postTime,
 						"name": name,
 						"parent": {
 							"id": subtitle.id,
 							"name": subtitle.firstChild.textContent,
-						},
-						"id": sha256(user+postTime)
+						}
 					}
-					post(body);
+					post(struct.user, body);
 				}else{
 					/* ---input content has NOT been changed--- */
 		    		// console.log("cancel add");
@@ -194,3 +193,5 @@ function cardAddButton(cardContainer, struct){
 		cardDiv.removeEventListener('click', addFolder);
 	}
 }
+
+export {loadPage, createTitle, createSubtitle, createCard, cardAddButton};

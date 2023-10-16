@@ -1,3 +1,7 @@
+import {get} from "../utility/get.js"
+import {visualize} from "../utility/visualize.js"
+
+ 
 function loadSubPage(struct, subpageId){
 	const content = document.getElementById("content");
 	content.innerHTML = "";
@@ -18,7 +22,7 @@ function loadSubPage(struct, subpageId){
 						    content.appendChild(cardWrapperDiv);
 						    cardWrapperDiv.appendChild(cardWrapperContainerDiv);
 
-							mainSubPage(subpage, cardWrapperContainerDiv);
+							mainSubPage(struct, subpage, cardWrapperContainerDiv);
 							/* ---------------------------------------- */
 						}
 					})
@@ -28,9 +32,8 @@ function loadSubPage(struct, subpageId){
 	})
 }
 
-function mainSubPage(subpage, container){
+function mainSubPage(struct, subpage, container){
 	subpage.children.forEach((element)=>{
-		console.log(element);
 		var divDOM = document.getElementById(element.id);
 		if(!divDOM){
 			const div = document.createElement("div");
@@ -38,7 +41,7 @@ function mainSubPage(subpage, container){
 			div.textContent = element.name;
 			container.appendChild(div);
 			if(!element.MimeType.includes("directory")){
-				get(element.id).then((file) => {
+				get(struct.user, element.id).then((file) => {
 					div.textContent = "";
 					const displayDiv = visualize(file);
 					if(displayDiv){
@@ -52,4 +55,5 @@ function mainSubPage(subpage, container){
 	})
 }
 
+export {loadSubPage, mainSubPage};
 

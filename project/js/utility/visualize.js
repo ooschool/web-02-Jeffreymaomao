@@ -15,14 +15,14 @@ function visualize(file){
 	}
 	/* ----------------- Display Text ----------------- */
 	if(file.MimeType.includes("text")){
-		if(file.MimeType.includes("markdown")){
-			console.log("markdown");
-			const markdownDiv = document.createElement("div");
-			const text = new TextDecoder().decode(new Uint8Array(file.bytes));
-		    var html = new showdown.Converter().makeHtml(text);
-		    markdownDiv.innerHTML = html;
-		    return markdownDiv;
-		}
+		// if(file.MimeType.includes("markdown")){
+		// 	console.log("markdown");
+		// 	const markdownDiv = document.createElement("div");
+		// 	const text = new TextDecoder().decode(new Uint8Array(file.bytes));
+		//     var html = new showdown.Converter().makeHtml(text);
+		//     markdownDiv.innerHTML = html;
+		//     return markdownDiv;
+		// }
 		const p = document.createElement("p");
 		const div = document.createElement("pre");
 		const text = new TextDecoder().decode(new Uint8Array(file.bytes));
@@ -46,3 +46,5 @@ function visualize(file){
 		return iframe;
 	}
 }
+
+export {visualize};

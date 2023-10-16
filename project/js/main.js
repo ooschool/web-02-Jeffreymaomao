@@ -1,60 +1,35 @@
+import {loadHome, createLinkButton, homeAddButton, createAddInputButton} from "./component/home.js";
+import {loadPage, createTitle, createSubtitle, createCard, cardAddButton} from "./component/page.js";
+import {loadSideBar, createSidebarItem, createNestedList, sideBarEventListener} from "./component/sidebar.js";
+import {loadSubPage, mainSubPage} from "./component/subpage.js";
+import {md5, sha256} from "./lib/hash.js";
+import {get} from "./utility/get.js"
+
 const user = "Chang Mao Yang";
 
-const postURL = `
-https://script.google.com/macros/s/AKfycbxWWArRaUZFLi463aSDbPRHQIn_kN3HX0glmhaeer_Ryjjk9uArrT54_4-jjL10tHL3/exec
-`
-const getURL  = "https://script.google.com/macros/s/AKfycbwtIWCwboyUx2KCsNNMO57UmnK2dPkASH6vodqjhOn44FGf0yvBmZivv--L2JKAkDRQ-w/exec"
+window.addEventListener("load", e => {
+    if (window.localStorage.NoteTree) {
+        const NoteTree = JSON.parse(window.localStorage.NoteTree);
+        if (NoteTree.struct) {
 
-const loadedFile = new Object();
+            main(NoteTree.struct);
+            console.log("first load from localStorage !")
+        }
+    }
+});
 
-function post(body){
-	// fetch(postURL, { 
-	// 	"method": "POST",
-	// 	"body": JSON.stringify(body)
-	// })
-	// .then((res) => {return res.text();})
-	// .then((result) => {
-	// 	const res = JSON.parse(result);
-	// 	console.table(res)
-	// })
-	// .catch((err) => console.log("err", err));
-	// console.table(body);
-	console.log("The post information is:");
-	console.log(body);
-	console.log("Notice that the function of post has not finished yet!\nSo this request won't post anyting to the database.");
-}
+get(user).then((Drive) => {
+	Drive.struct.user = user;
+	main(Drive.struct);
+	window.localStorage.NoteTree = JSON.stringify(Drive);
+}).catch((error) => {
+    console.error(error);
+});
 
-function get(id=null){
-	const fetchURL = id ? getURL + '?id=' + id : getURL;
-	if(loadedFile[id]){
-		return new Promise((resolve, reject) => {
-			resolve(loadedFile[id]);
-		});
-	}
 
-	return fetch(fetchURL, { "method": "GET"})
-		.then((res) => {return res.text();})
-		.then((result) => {
-			const Drive = JSON.parse(result);
-
-			if(Drive.file){
-				loadedFile[Drive.file.id] = Drive.file;
-				return Drive.file;
-			}
-
-			if(Drive.struct){
-				main(Drive.struct);
-				window.localStorage.NoteTree = JSON.stringify(Drive);
-				console.log("reload");
-			}
-		})
-		.catch((err) => {
-			console.log("err", err);
-			return null;
-		});
-}
 /* --------------------------------------------- */
 function main(struct){
+	console.log("parse struct")
 	const urlParams = new URLSearchParams(window.location.search);
 	const page = urlParams.get("page");
 	const subpage = urlParams.get("subpage");
@@ -69,33 +44,4 @@ function main(struct){
 	loadSideBar(struct, page, subpage);
 }
 
-/* ---------------------------------------------------------------------- */
-// tool
-function findPreviousElementSiblingWithClass(element, className) {
-	let previousSibling = element.previousElementSibling;
-	console.log(previousSibling)
-
-	while (previousSibling) {
-		if (previousSibling.classList.contains(className)) {
-			return previousSibling;
-		}
-
-		previousSibling = previousSibling.previousElementSibling;
-	}
-	return null;
-}
-
-function getCurrentTime() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const date = String(now.getDate()).padStart(2, '0');
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  const seconds = String(now.getSeconds()).padStart(2, '0');
-
-  // 格式為 "YYYY-MM-DD HH:mm:ss"
-  const formattedDateTime = `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
-  return formattedDateTime;
-}
 

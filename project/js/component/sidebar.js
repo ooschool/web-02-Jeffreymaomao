@@ -1,3 +1,6 @@
+import {post} from "../utility/post.js"
+import {createAddInputButton} from "../utility/tools.js"
+
 /* --------------------------------------------- */
 /* sidebar */
 function loadSideBar(struct, pageLocation, subpageLocation){
@@ -19,7 +22,7 @@ function loadSideBar(struct, pageLocation, subpageLocation){
 
 	const sidebarItems = [];
 	sidebarItems.push(
-		createSidebarItem(struct, `?page=${struct.id}`, isActive=isHome, expandBtn=false)
+		createSidebarItem(struct, `?page=${struct.id}`, isHome, false)
 	);
 	/* page */
 	struct.children.forEach((page)=>{
@@ -37,7 +40,7 @@ function loadSideBar(struct, pageLocation, subpageLocation){
 				})
 			}
 			sidebarItems.push(
-				createSidebarItem(page, `?page=${page.id}`, isActive=active, expandBtn=true)
+				createSidebarItem(page, `?page=${page.id}`, active, true)
 			);
 			sidebarItems.push(
 				createNestedList(page)
@@ -152,3 +155,6 @@ function sideBarEventListener(button){
 		}
 	})
 }
+
+
+export {loadSideBar, createSidebarItem, createNestedList, sideBarEventListener};
