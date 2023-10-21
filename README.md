@@ -5,6 +5,7 @@
 - `./.gitignore`: in order to ignore the `.DS_store` file while git
 
 ## Structure of my project：
+
 **project**
 > index.html
 > **pages**

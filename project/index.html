@@ -1,33 +1,46 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+	<!-- Basic meta -->
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<link rel="icon" type="image/x-icon" href="./img/icon.ico">
-
-	<!-- Add meta tags for SEO -->
-    <meta name="description" content="Your website description goes here.">
-    <meta name="keywords" content="keyword1, keyword2, keyword3">
-    <meta name="author" content="Your Name">
+    <meta name="description" content="NoteTree: A webapp for organized note-taking! Access and visualize your notes with ease.">
+    <meta name="keywords" content="Organized notes, Google Drive notes, Note visualization">
+    <meta name="author" content="Chang Mao Yang">
     <meta name="robots" content="index, follow">
+
+    <!-- OpenGraph meta-->
+    <meta property="og:title" content="NoteTree">
+	<meta property="og:description" content="NoteTree: A webapp for organized note-taking! Access and visualize your notes with ease.">
+	<meta property="og:url" content="https://notetree.xyz">
+	<meta property="og:locale" content="en"/>
+
+	<meta property="og:image" content="https://raw.githubusercontent.com/Jeffreymaomao/figure/main/fig4.jpg">
+	<meta property="og:image:alt" content="preview"/>
+	<meta property="og:image:type" content="image/jpg"/>
+	<meta property="og:image:width" content="400"/>
+	<meta property="og:image:height" content="300"/>
+
+	<!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Jeffreymaomao/figure/main/fig2.ico">
     
     <!-- Specify the canonical URL of your page (if applicable) -->
-    <link rel="canonical" href="https://www.yourwebsite.com">
+    <link rel="canonical" href="https://notetree.xyz">
 
+    <!-- CSS stylesheets -->
+	<link rel="stylesheet" href="/css/normalize.css">
+	<link rel="stylesheet" href="/css/global.css">
+	<link rel="stylesheet" href="/css/sidebar.css">
+	<link rel="stylesheet" href="/css/home.css">
+	<link rel="stylesheet" href="/css/pages.css">
+	<link rel="stylesheet" href="/css/RWD.css">
 
-    <!-- css -->
-	<link rel="stylesheet" href="./css/normalize.css">
-	<link rel="stylesheet" href="./css/global.css">
-	<link rel="stylesheet" href="./css/sidebar.css">
-	<link rel="stylesheet" href="./css/home.css">
-	<link rel="stylesheet" href="./css/pages.css">
-	<link rel="stylesheet" href="./css/RWD.css">
+	<!-- JavaScript files -->
+	<script src="/js/lib/showdown.js"></script>
+	<script type="module" src="/js/main.js"></script>
 
-    <!-- js -->
-	<script src="./js/lib/showdown.js"></script>
-	<script type="module" src="./js/main.js"></script>
-
-	<title> Note Tree </title>
+	<!-- Page title -->
+	<title> NoteTree </title>
 </head>
 <body>
 	<div class="wrapper">
