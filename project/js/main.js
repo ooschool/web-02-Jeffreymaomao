@@ -1,7 +1,8 @@
-import {loadHome, createLinkButton, homeAddButton, createAddInputButton} from "./component/home.js";
-import {loadPage, createTitle, createSubtitle, createCard, cardAddButton} from "./component/page.js";
-import {loadSideBar, createSidebarItem, createNestedList, sideBarEventListener} from "./component/sidebar.js";
-import {loadSubPage, mainSubPage} from "./component/subpage.js";
+import {loadTopBar} from "./component/topbar.js";
+import {loadHome} from "./component/home.js";
+import {loadPage} from "./component/page.js";
+import {loadSubPage} from "./component/subpage.js";
+import {loadSideBar} from "./component/sidebar.js";
 import {md5, sha256} from "./lib/hash.js";
 import {get} from "./utility/get.js"
 
@@ -11,7 +12,6 @@ window.addEventListener("load", e => {
     if (window.localStorage.NoteTree) {
         const NoteTree = JSON.parse(window.localStorage.NoteTree);
         if (NoteTree.struct) {
-
             main(NoteTree.struct);
             console.log("first load from localStorage !")
         }
@@ -27,6 +27,8 @@ window.addEventListener("load", e => {
 
 /* --------------------------------------------- */
 function main(struct){
+	loadTopBar(struct);
+
 	console.log("parse struct");
 	const urlParams = new URLSearchParams(window.location.search);
 	const page = urlParams.get("page");

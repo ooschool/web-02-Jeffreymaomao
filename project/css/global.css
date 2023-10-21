@@ -209,6 +209,9 @@ p.text{
 	float: left;
 	padding: 2px;
 }
+.profile-img img{
+	height: 40px;
+}
 
 .profile-name{
 	float: right;
