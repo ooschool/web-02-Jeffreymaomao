@@ -39,7 +39,7 @@ function main(struct){
 	}else if(page){
 		loadPage(struct, page);
 	}else if(subpage){
-		loadSubPage(struct, subpage)
+		loadSubPage(struct, subpage);
 	}
 	loadSideBar(struct, page, subpage);
 }
