@@ -13,24 +13,30 @@ function loadTopBar(struct){
 		userNameDom.innerText = user;
 	}
 
-	struct.children.forEach((file)=>{
-		if(file.MimeType.includes("image")){
 
-			if(userImageDom){
-				get(user, file.id).then((data)=>{
+	let latestFile = null;
+	let latestTime = null;
 
-					const blob = new Blob([new Uint8Array(data.bytes)], { type: data.MimeType });
-					const url = URL.createObjectURL(blob);
-					userImageDom.src = url;
-					userImageDom.addEventListener("onload",function(){
-						URL.revokeObjectURL(url);
-					})
+	struct.children.forEach((file) => {
+	    const time = new Date(file.time);
+	    if (file.MimeType.includes("image")) {
+	        if (!latestTime || time > latestTime) {
+	            latestTime = time;
+	            latestFile = file;
+	        }
+	    }
+	});
 
-				})
-			}
-
-		}
-	})
+	if (latestFile && userImageDom) {
+	    get(user, latestFile.id).then((data) => {
+	        const blob = new Blob([new Uint8Array(data.bytes)], { type: data.MimeType });
+	        const url = URL.createObjectURL(blob);
+	        userImageDom.src = url;
+	        userImageDom.onload = function() {
+	            URL.revokeObjectURL(url);
+	        }
+	    });
+	}
 
 
 	// --------------------------------
