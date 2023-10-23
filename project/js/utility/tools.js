@@ -76,9 +76,15 @@ function findBackgroundImage(page){
     // 4. lastest image
     return page.children.find((image) => 
         image.MimeType.includes("image") && 
-        (image.name.includes(`${page.name}-background`) ||
-         image.name.includes(`${page.name.toLowerCase()}-background`) ||
-         image.name.includes("background"))
+        (
+            image.name.includes(`${page.name}-background`) ||
+            image.name.includes(`${page.name.toLowerCase()}-background`) ||
+            image.name.includes(page.name) ||
+            image.name.includes(page.name.toLowerCase()) ||
+            image.name.includes("background") || 
+            page.name.includes(image.name) || 
+            page.name.toLowerCase().includes(image.name)
+        )
     ) || getLatestImage(page.children);
 }
 

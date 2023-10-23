@@ -8,14 +8,18 @@ import {get} from "./utility/get.js"
 
 const user = "Chang Mao Yang";
 
-window.addEventListener("load", e => {
+window.addEventListener("load", (e) => {
+	// if struct already in window.localStorage 
+	// --- 1. first update ---
     if (window.localStorage.NoteTree) {
         const NoteTree = JSON.parse(window.localStorage.NoteTree);
         if (NoteTree.struct) {
             main(NoteTree.struct);
-            console.log("first load from localStorage !")
+            console.log("first load from localStorage !");
         }
     }
+
+    // --- 2. get the struct frome Drive ---
     get(user).then((Drive) => {
 		Drive.struct.user = user;
 		main(Drive.struct);
@@ -23,12 +27,15 @@ window.addEventListener("load", e => {
 	}).catch((error) => {
 	    console.error(error);
 	});
+
+	// --- 3. get the struct frome Drive ---
+	// - get the struct when fetch down
+	// - get the struct every 1min maybe ?
 });
 
 /* --------------------------------------------- */
 function main(struct){
 	loadTopBar(struct);
-	console.log("parse struct");
 	const urlParams = new URLSearchParams(window.location.search);
 	const page = urlParams.get("page");
 	const subpage = urlParams.get("subpage");

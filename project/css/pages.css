@@ -22,10 +22,10 @@
 #card-wrapper{
 	margin: 0px 16%;
 	margin-bottom: 50px;
+	min-width: 200px;
 }
 
 #card-wrapper .text-container{
-	min-width: 300px;
 	width: 100%;
 	text-align: center;
 }
@@ -50,8 +50,6 @@
 
 	transform: translate(0);
 	transition: box-shadow 0.3s ;
-
-	min-width: 200px;
 }
 
 .card:hover{

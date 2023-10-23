@@ -1,4 +1,5 @@
 import {post} from "../utility/post.js"
+import {get} from "../utility/get.js"
 import {createAddInputButton, forEachFolder, sortBy, findBackgroundImage} from "../utility/tools.js"
 
 /* --------------------------------------------- */
@@ -21,17 +22,17 @@ function loadPage(struct, pageLocation) {
     const pages = struct.children;
 	pages.sort(sortBy.Unicode);
     forEachFolder(pages, (page) => {
-
-    	const titles = page.children;
-		titles.sort(sortBy.Unicode);
         if (page.MimeType.includes("directory") && page.id === pageLocation ) {
+
+        	const titles = page.children;
+			titles.sort(sortBy.Unicode).reverse();
             forEachFolder(titles, (title) => {
             	/* add title */
                 const titleDiv = createTitle(title);
                 cardWrapperContainerDiv.appendChild(titleDiv);
 
-                const subtitles = page.children;
-				subtitles.sort(sortBy.Unicode);
+                const subtitles = title.children;
+				subtitles.sort(sortBy.Unicode).reverse();
                 forEachFolder(subtitles, (subtitle) => {
                 	/* add subtitle */
 	                const { subtitleDiv, cardContainer } = createSubtitle(subtitle);
@@ -40,7 +41,7 @@ function loadPage(struct, pageLocation) {
                     forEachFolder(cards, (card) => {
                     	/* add card */
                         const {cardImg} = createCard(card.name, `?subpage=${card.id}`, cardContainer);
-                        setCardBackground(user, subtitle, cardImg)
+                        setCardBackground(user, card, cardImg)
                     });
 	                cardWrapperContainerDiv.appendChild(subtitleDiv);
 	                cardWrapperContainerDiv.appendChild(cardContainer);
@@ -57,32 +58,33 @@ function loadPage(struct, pageLocation) {
     });
 }
 
-function setCardBackground(user, subtitle, cardImg) {
-    const backgroundImage = findBackgroundImage(subtitle);
-    console.log(backgroundImage, cardImg)
+function setCardBackground(user, card, cardImg) {
+    const backgroundImage = findBackgroundImage(card);
 
-    // if (backgroundImage) {
-    //     get(user, backgroundImage.id).then((data) => {
-    //         const blob = new Blob([new Uint8Array(data.bytes)], { type: data.MimeType });
-    //         const url = URL.createObjectURL(blob);
-    //         linkBtnImg.src = url;
-    //         linkBtnImg.onload = function() {
-    //             URL.revokeObjectURL(url);
-    //         }
-    //     });
-    // }
+
+    if (backgroundImage) {
+        get(user, backgroundImage.id).then((data) => {
+            const blob = new Blob([new Uint8Array(data.bytes)], { type: data.MimeType });
+            const url = URL.createObjectURL(blob);
+            cardImg.src = url;
+            cardImg.onload = function() {
+                URL.revokeObjectURL(url);
+            }
+        });
+    }
 }
 
 
 function createTitle(title) {
     const titleDiv = document.createElement('div');
-    const titleA = document.createElement('a');
-    const titleH2 = document.createElement('h2');
-
     titleDiv.classList.add("text-container", "title");
-    titleH2.classList.add("text");
 
+    const titleA = document.createElement('a');
+    titleA.draggable = false;
     titleDiv.appendChild(titleA);
+
+    const titleH2 = document.createElement('h2');
+    titleH2.classList.add("text");    
     titleA.appendChild(titleH2);
 
     if(title){
@@ -103,6 +105,7 @@ function createTitle(title) {
 function createSubtitle(subtitle) {
     const subtitleDiv = document.createElement('div');
     const subtitleA = document.createElement('a');
+    subtitleA.draggable = false;
     const subtitleH3 = document.createElement('h3');
 
     subtitleDiv.classList.add("text-container", "sub-title");
@@ -135,6 +138,7 @@ function createCard(name, href, cardContainer) {
     cardDiv.classList.add("col-lg-4", "col-md-6","col-sm-12");
 
     const cardA = document.createElement('a');
+    cardA.draggable = false;
     cardA.classList.add("card");
     cardA.href = href;
 
