@@ -1,8 +1,10 @@
 import {post} from "../utility/post.js"
-import {createAddInputButton, forEachFolder} from "../utility/tools.js"
+import {createAddInputButton, forEachFolder, sortBy, findBackgroundImage} from "../utility/tools.js"
 
 /* --------------------------------------------- */
 function loadPage(struct, pageLocation) {
+	const user = struct.user;
+
     const content = document.getElementById("content");
     content.innerHTML = "";
 
@@ -16,19 +18,29 @@ function loadPage(struct, pageLocation) {
     content.appendChild(cardWrapperDiv);
     cardWrapperDiv.appendChild(cardWrapperContainerDiv);
 
-    forEachFolder(struct.children, (page) => {
+    const pages = struct.children;
+	pages.sort(sortBy.Unicode);
+    forEachFolder(pages, (page) => {
+
+    	const titles = page.children;
+		titles.sort(sortBy.Unicode);
         if (page.MimeType.includes("directory") && page.id === pageLocation ) {
-            forEachFolder(page.children, (title) => {
+            forEachFolder(titles, (title) => {
             	/* add title */
                 const titleDiv = createTitle(title);
                 cardWrapperContainerDiv.appendChild(titleDiv);
 
-                forEachFolder(title.children, (subtitle) => {
+                const subtitles = page.children;
+				subtitles.sort(sortBy.Unicode);
+                forEachFolder(subtitles, (subtitle) => {
                 	/* add subtitle */
 	                const { subtitleDiv, cardContainer } = createSubtitle(subtitle);
-                    forEachFolder(subtitle.children, (card) => {
+	                const cards = subtitle.children;
+					cards.sort(sortBy.Unicode);
+                    forEachFolder(cards, (card) => {
                     	/* add card */
-                        createCard(card.name, `?subpage=${card.id}`, cardContainer);
+                        const {cardImg} = createCard(card.name, `?subpage=${card.id}`, cardContainer);
+                        setCardBackground(user, subtitle, cardImg)
                     });
 	                cardWrapperContainerDiv.appendChild(subtitleDiv);
 	                cardWrapperContainerDiv.appendChild(cardContainer);
@@ -44,6 +56,23 @@ function loadPage(struct, pageLocation) {
         }
     });
 }
+
+function setCardBackground(user, subtitle, cardImg) {
+    const backgroundImage = findBackgroundImage(subtitle);
+    console.log(backgroundImage, cardImg)
+
+    // if (backgroundImage) {
+    //     get(user, backgroundImage.id).then((data) => {
+    //         const blob = new Blob([new Uint8Array(data.bytes)], { type: data.MimeType });
+    //         const url = URL.createObjectURL(blob);
+    //         linkBtnImg.src = url;
+    //         linkBtnImg.onload = function() {
+    //             URL.revokeObjectURL(url);
+    //         }
+    //     });
+    // }
+}
+
 
 function createTitle(title) {
     const titleDiv = document.createElement('div');
@@ -134,6 +163,8 @@ function createCard(name, href, cardContainer) {
 		cardA.appendChild(addIcon);
 		return {cardDiv, cardA, cardImgDiv, cardCaptionH4, cardImg, addIcon}
     }
+
+    return {cardImg}
 }
 
 function cardAddButton(cardContainer, struct){
