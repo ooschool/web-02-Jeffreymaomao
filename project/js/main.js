@@ -28,7 +28,6 @@ window.addEventListener("load", e => {
 /* --------------------------------------------- */
 function main(struct){
 	loadTopBar(struct);
-
 	console.log("parse struct");
 	const urlParams = new URLSearchParams(window.location.search);
 	const page = urlParams.get("page");
