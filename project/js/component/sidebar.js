@@ -24,38 +24,53 @@ function loadSideBar(struct, pageLocation, subpageLocation){
 	sidebarItems.push(
 		createSidebarItem(struct, `?page=${struct.id}`, isHome, false)
 	);
-
+	var isHereId = null;
 	forEachFolder(struct.children, (page)=>{
-		var active = pageLocation===page.id;
-		if(!active){
+		var expand = pageLocation===page.id; // check first order
+		if(!expand){
 			forEachFolder(page.children,(title)=>{
 				forEachFolder(title.children, (subtitle)=>{
 					forEachFolder(subtitle.children,(subpage)=>{
 						if(subpageLocation===subpage.id){
-							active = true;
+							expand = true;
+							isHereId = subtitle.id;
+							return;
 						}
 					})
 				})
 			})
 		}
 
-		const sidebarItem = createSidebarItem(page, `?page=${page.id}`, active, true);
-		const sidebarList = createNestedList(page, active);
+		const sidebarItem = createSidebarItem(page, `?page=${page.id}`, expand, true);
+		const sidebarList = createNestedList(page, expand, isHereId);
 		sidebarItems.push(sidebarItem);
 		sidebarItems.push(sidebarList);
-	})
+	});
 
 	sidebarListDiv.append(...sidebarItems);
 	/* append primary button DOM element*/
+	if(!isHereId){
+		checkSideBarItemIsHere();
+	}
+	addEventListener("hashchange", checkSideBarItemIsHere);
 }
 
-function createSidebarItem(obj, href, isActive, expandBtn) {
+function checkSideBarItemIsHere(isHereId, e){
+	const hash = window.location.hash;
+	[...document.querySelectorAll(".sidebar-secondary-item, .sidebar-tertiary-item")].forEach((item)=>{
+		item.classList.remove("is-here")
+		const id = item.querySelector("a").href.split("#").reverse()[0];
+		if(hash===`#${id}`) item.classList.add("is-here")
+	});
+}
+
+function createSidebarItem(obj, href, expand, expandBtn) {
 	const item = document.createElement('a');
 	item.classList.add('sidebar-primary-item');
 	item.draggable = false;
 
 	item.href = href;
-	if (isActive) {
+	if (expand) {
 		item.classList.add('active');
 	}
 
@@ -84,16 +99,16 @@ function createSidebarItem(obj, href, isActive, expandBtn) {
 		const expandContainer = document.createElement('div');
 		expandContainer.classList.add("btn-container");
 
-		const expand = document.createElement('div');
-		expand.classList.add("icon");
-		if(isActive){
-			expand.classList.add("expanded-icon");
+		const expandDOM = document.createElement('div');
+		expandDOM.classList.add("icon");
+		if(expand){
+			expandDOM.classList.add("expanded-icon");
 		}else{
-			expand.classList.add("collapsed-icon");
+			expandDOM.classList.add("collapsed-icon");
 		}
 
 		item.appendChild(expandContainer);
-		expandContainer.appendChild(expand);
+		expandContainer.appendChild(expandDOM);
 
 		/* Event Listener */
 		sideBarEventListener(expandContainer);
@@ -104,7 +119,7 @@ function createSidebarItem(obj, href, isActive, expandBtn) {
 	return item;
 }
 
-function createNestedList(page, isActive) {
+function createNestedList(page, expand, isHereId) {
 	const list = document.createElement('ul');
 	list.classList.add('sidebar-secondary-menu');
 
@@ -135,22 +150,24 @@ function createNestedList(page, isActive) {
 			subItemA.draggable = false;
 			subItemA.classList.add("text-container");
 
-			listItemSubList.appendChild(subItem);
-			subItem.appendChild(subItemA);
-
 			subItemA.textContent = sub.name;
 			subItemA.href = `?page=${page.id}#${sub.id}`;
+
+			if(isHereId && (sub.id===isHereId)){
+				subItem.classList.add("is-here");
+			}
+
+			listItemSubList.appendChild(subItem);
+			subItem.appendChild(subItemA);
 		})
 	});
 
 	// Here using a trick: `setTimeout with 0ms makes code run after the current event loop tick.`
 	setTimeout(() => {
-        if (isActive) {
+        if (expand) {
             list.style.maxHeight = list.scrollHeight + "px";
         }
     }, 0);
-
-
 	return list;
 }
 
